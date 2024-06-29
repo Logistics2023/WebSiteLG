@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import Modal from '@/components/Modal'
 import TextEditor from '@/components/TextEditor'
 import TextEditorSimple from '@/components/TextEditorSimple'
+import InputFlotante from '@/components/InputFlotante'
 
 // import { useSearchParams } from 'next/navigation'
 
@@ -63,22 +64,24 @@ export default function Home() {
     }
 
     // --------------------------mini tarjetas 2----------------------------------
-    function handlerLess2() {
-        let db = { ...data2 };
-        delete db[`item${data2 !== undefined && Object.keys(data2).length - 1}`];
-        return setData2(db)
+    // function handlerLess2() {
+    //     let db = { ...data2 };
+    //     delete db[`item${data2 !== undefined && Object.keys(data2).length - 1}`];
+    //     return setData2(db)
+    // }
+    function handlerLess2(d) {
+            let db = { ...data2 };
+            delete db[`item${data2 !== undefined && Object.keys(data2).length - 1}`];
+            removeData(`/Cliente/${query}/tarjetas/${route}/especificaciones/item${Object.keys(data2).length - 1}`, setUserSuccess,  ()=>setData2(db) )
+            return  
     }
-
     function onChangeHandler2(e, index) {
         setData2({ ...data2, [`item${index}`]: { ...data2[`item${index}`], [e.target.name]: e.target.value } })
     }
-
-
-
     function saveContent(e) {
         e.preventDefault()
         setUserSuccess('Cargando')
-        writeUserData(`/Cliente/${query}/tarjetas/${route}`,  data, setUserSuccess)
+        writeUserData(`/Cliente/${query}/tarjetas/${route}`, data, setUserSuccess)
     }
     function saveEspecificaciones(e) {
         e.preventDefault()
@@ -118,16 +121,17 @@ export default function Home() {
 
 
     useEffect(() => {
+        console.log(Object.keys(data3).length === 0 && cliente && cliente[query] && cliente[query] && cliente[query].tarjetas[route] && cliente[query].tarjetas[route].especificaciones)
 
-        if (Object.keys(data2).length === 0 && cliente && cliente[query] && cliente[query] && cliente[query].miniTarjetas) {
-            setData2({ ...cliente[query].miniTarjetas, ...data2, })
+        if (Object.keys(data3).length === 0 && cliente && cliente[query] && cliente[query] && cliente[query].tarjetas[route] && cliente[query].tarjetas[route].especificaciones) {
+            setData2({ ...cliente[query].tarjetas[route].especificaciones, ...data2, })
         }
-        if (Object.keys(data3).length === 0 && cliente && cliente[query] && cliente[query] && cliente[query].tarjetas) {
-            console.log('getData3')
-            setData3({ ...cliente[query].tarjetas, ...data2, })
-        }
+        // if (Object.keys(data3).length === 0 && cliente && cliente[query] && cliente[query] && cliente[query].tarjetas) {
+        //     console.log('getData3')
+        //     setData3({ ...cliente[query].tarjetas, ...data3, })
+        // }
 
-    }, [textEditor, data2])
+    }, [cliente, query, route])
     console.log(data2)
     return (
 
@@ -143,7 +147,7 @@ export default function Home() {
                     </div>
                     <form className="relative  pt-5" onSubmit={saveContent} >
                         <div className="col-span-full">
-                            <h2 className="text-base font-bold leading-7 text-gray-900  text-center p-5 ">ADMINISTRAR SECCIONES</h2>
+                            <h2 className="text-base font-bold leading-7 text-gray-900  text-center p-5 ">ADMINISTRAR CONTENIDO DE TARJETA</h2>
                             <div className='flex justify-center p-5'>
                                 <Suspense >
                                     <video src={data && data.urlVideo && data.urlVideo ? data.urlVideo : (cliente && cliente[query] && cliente[query].tarjetas && cliente[query].tarjetas[route] && cliente[query].tarjetas[route].urlVideo)} className='h-[300px]' autoPlay loop muted playsInline ></video>
@@ -175,7 +179,7 @@ export default function Home() {
 
                         {/* ---------------------------------TARJETAS 2---------------------------------------- */}
 
-                        <div className="inline-flex">
+                        <div className="inline-flex  mb-5">
                             <button type='button' className="bg-red-500 text-white font-bold py-2 px-4 rounded-l" onClick={handlerLess2}>
                                 -
                             </button>
@@ -184,11 +188,14 @@ export default function Home() {
                             </button>
                         </div>
                         {data2 && data2 !== undefined && Object.values(data2).map((i, index) => {
-                            return <div className="sm:col-span-3 mb-5 pb-5 border-b-[.5px] border-[#666666]">
-                                <label htmlFor="first-name" className="block text-[12px] font-medium leading-6 text-gray-900">Item</label>
-                                <input type="text" name={`ip`} onChange={(e) => onChangeHandler2(e, index)} className="block w-full rounded-md border-0 p-1.5 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-[12px] sm:leading-6" defaultValue={data2[`item${index}`][`ip`]} />
-                                <label htmlFor="first-name" className="block text-[12px] font-medium leading-6 text-gray-900">Especificacion</label>
-                                <input type="text" name={`ic`} onChange={(e) => onChangeHandler2(e, index)} className="block w-full rounded-md border-0 p-1.5 mt-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-[12px] sm:leading-6" defaultValue={data2[`item${index}`][`ic`]} />
+                            return <div className="space-y-5 md:space-y-0 md:grid md:grid-cols-2  md:gap-2 pb-5 border-b-[.5px] mb-5 border-[#666666]">
+
+                                < InputFlotante type="text" name={`ip`} uid={`key_${index}`} onChange={(e) => onChangeHandler2(e, index)} value={data2[`item${index}`][`ip`]} required label={'Item principal'} shadow='shadow-white' />
+                                < InputFlotante type="text" name={`ic`} uid={`value_${index}`} onChange={(e) => onChangeHandler2(e, index)} value={data2[`item${index}`][`ic`]} required label={'Item contenido'} shadow='shadow-white' />
+
+
+                                {/* <input type="text" name={`ip`} onChange={(e) => onChangeHandler2(e, index)}  defaultValue={data2[`item${index}`][`ip`]} />
+                                <input type="text" name={`ic`} onChange={(e) => onChangeHandler2(e, index)}  defaultValue={data2[`item${index}`][`ic`]} /> */}
                             </div>
                         })
                         }

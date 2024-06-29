@@ -31,6 +31,7 @@ export default function Home() {
         setUserSuccess('Cargando')
         writeUserData(`/Cliente/${query}/tarjetas`, { [key]: data3 }, setUserSuccess)
     }
+    console.log(data3)
     useEffect(() => {
         if (window && typeof window !== "undefined") {
             setQuery(window.location.href.split('=')[1])

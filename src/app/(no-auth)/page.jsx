@@ -27,6 +27,12 @@ import mercancias from '@/db/mercancias.json'
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.core.css';
+import dynamic from 'next/dynamic'
+
+const InvoicePDF = dynamic(() => import("@/components/CotizacionPDF"), {
+  ssr: false,
+});
+
 
 
 
@@ -57,7 +63,7 @@ function Item({ e1, e2 }) {
     }}
     initiallyVisible={true}>
     <div className='flex flex-col justify-center items-center'>
-      <span className='text-[30px] font-medium'>{e1}</span>
+      <span className='text-[20px] md:text-[25px] font-medium'>{e1}</span>
       <span className='text-center'>{e2}</span>
     </div>
   </ScrollAnimation>
@@ -67,10 +73,14 @@ function Section({ subtitle, description, video, gradiente, id, children, tarjet
 
   const { user, introVideo, userDB, setUserProfile, setUserSuccess, success, setUserData, postsIMG, setUserPostsIMG, nav, cliente, setCliente, focus, setFocus } = useUser()
 
-
+  const redirectHandlerWindow = (ref) => {
+    window.open(ref, '_blank')
+  }
 
   return <section className='relative w-full  bg-gradient-to-tr from-[#00195c] via-[#274492] to-[#00195c] overflow-x-hidden overflow-hidden' id={id}>
-    <div className='relative px-5 py-12 w-full min-h-[50vh] flex flex-col z-30 lg:grid lg:grid-cols-2 justify-around items-center  from-[#00195cdc] via-[#00195cb6] to-[#00195cdc] '>
+    {/* <div className='relative px-5 py-12 w-full min-h-[50vh] flex flex-col z-30 lg:grid lg:grid-cols-2 justify-around items-center  from-[#00195cdc] via-[#00195cb6] to-[#00195cdc] '> */}
+
+    <div className='relative px-5 py-12 w-full min-h-[50vh] lg:px-[100px] flex flex-col z-30  justify-around items-center  from-[#00195cdc] via-[#00195cb6] to-[#00195cdc] '>
       <div>
         <Subtitle><h3 className='text-[30px] text-[white] text-center font-medium  py-10'>{subtitle}</h3></Subtitle>
         <ScrollAnimation animateIn='bounceInLeft'
@@ -79,8 +89,8 @@ function Section({ subtitle, description, video, gradiente, id, children, tarjet
         >
           <p className=' text-[16px] text-[white] pb-5' dangerouslySetInnerHTML={{ __html: description }}>
           </p>
-          <div className='flex justify-end '>
-            <button type="button" className="w-full border-[2px] md:max-w-[300px] text-gray-900 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-[12px] px-5 py-2.5 text-center inline-flex items-center ">
+          <div className='flex justify-start '>
+            <button type="button" className="w-full border-[2px] md:max-w-[300px] text-gray-900 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4 focus:outline-none focus:ring-[#F7BE38]/50 font-medium rounded-lg text-[12px] px-5 py-2.5 text-center inline-flex items-center " onClick={() => redirectHandlerWindow(`https://api.whatsapp.com/send?phone=${cliente.contactos.celular}&text=hola%20Logistics%20Gear,%20quiero%20ordenar%20un%20servicio%20${subtitle}%20`)}>
               Orden de servicio
               <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
@@ -120,14 +130,11 @@ function Section({ subtitle, description, video, gradiente, id, children, tarjet
 
 
 export default function Home() {
-  const { user, introVideo, userDB, setUserProfile, setUserSuccess, success, setUserData, postsIMG, setUserPostsIMG, nav, cliente, setCliente, focus, setFocus, seeMore, setSeeMore } = useUser()
+  const { user, introVideo, userDB, setUserProfile, setUserSuccess, calcValueFCL, setCalcValueFCL, calcValue, setCalcValue, element, setElement, naviera, setNaviera, success, setUserData, postsIMG, setUserPostsIMG, nav, cliente, setCliente, focus, setFocus, seeMore, setSeeMore } = useUser()
 
-  const [element, setElement] = useState('TRACKING')
-  const [calcValueFCL, setCalcValueFCL] = useState('NO DATA')
-  const [calcValue, setCalcValue] = useState('NO DATA')
+
   const [selectValue, setSelectValue] = useState({})
   const [code, setCode] = useState('')
-  const [naviera, setNaviera] = useState('')
 
 
   const router = useRouter()
@@ -141,7 +148,11 @@ export default function Home() {
     window.open(ref, '_blank')
   }
 
+  
+  function handlerClickSelect2(e) {
+    setSelectValue({...selectValue, SERVICIO: e})
 
+  }
   function handlerOnChangeQR(e) {
     QRreaderUtils(e, setCode)
 
@@ -153,7 +164,7 @@ export default function Home() {
   async function HandlerCheckOut(e) {
 
     //  const data =  Object.entries(calcValue).map((i, index) => `${i[0]}: ${i[1]}`)
-    router.push('Solicitud')
+    router.push('PDF')
     return
 
     const db = Object.entries(calcValue).reverse().reduce((acc, i, index) => {
@@ -346,10 +357,10 @@ export default function Home() {
   }
   function calculatorFCL(e) {
     e.preventDefault()
-    if( user === null || user === undefined  ) {
+    if (user === null || user === undefined) {
       router.push('/Login')
       return
-      }
+    }
     console.log(inputRef.current.value)
     console.log(inputRef2.current.value)
     let val = Object.values(cliente.priceFCL).filter((i) => {
@@ -406,11 +417,11 @@ export default function Home() {
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                 </svg>
               </button>
-              <button type="button" onClick={() => redirectHandlerWindow(`https://api.whatsapp.com/send?phone=+59176586948&text=hola%20Logistics%20Gear`)} className="w-full  border-[2px]  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] px-5 py-2.5 text-center inline-flex items-center ">
-                Contactar
-                <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+              <button type="button" onClick={() => redirectHandlerWindow(`https://api.whatsapp.com/send?phone=${cliente.contactos.celular}&text=hola%20Logistics%20Gear`)} className="w-full border-[2px]  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] px-5 py-2.5 text-center inline-flex items-center ">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.0508 2.91006C16.134 1.98399 15.042 1.24973 13.8384 0.750111C12.6349 0.250494 11.3439 -0.00448012 10.0408 5.95696e-05C4.58078 5.95696e-05 0.130781 4.45006 0.130781 9.91006C0.130781 11.6601 0.590781 13.3601 1.45078 14.8601L0.0507812 20.0001L5.30078 18.6201C6.75078 19.4101 8.38078 19.8301 10.0408 19.8301C15.5008 19.8301 19.9508 15.3801 19.9508 9.92006C19.9508 7.27006 18.9208 4.78006 17.0508 2.91006ZM10.0408 18.1501C8.56078 18.1501 7.11078 17.7501 5.84078 17.0001L5.54078 16.8201L2.42078 17.6401L3.25078 14.6001L3.05078 14.2901C2.22853 12.977 1.79192 11.4593 1.79078 9.91006C1.79078 5.37006 5.49078 1.67006 10.0308 1.67006C12.2308 1.67006 14.3008 2.53006 15.8508 4.09006C16.6183 4.85402 17.2265 5.76272 17.6402 6.76348C18.0539 7.76425 18.2648 8.83717 18.2608 9.92006C18.2808 14.4601 14.5808 18.1501 10.0408 18.1501ZM14.5608 11.9901C14.3108 11.8701 13.0908 11.2701 12.8708 11.1801C12.6408 11.1001 12.4808 11.0601 12.3108 11.3001C12.1408 11.5501 11.6708 12.1101 11.5308 12.2701C11.3908 12.4401 11.2408 12.4601 10.9908 12.3301C10.7408 12.2101 9.94078 11.9401 9.00078 11.1001C8.26078 10.4401 7.77078 9.63006 7.62078 9.38006C7.48078 9.13006 7.60078 9.00006 7.73078 8.87006C7.84078 8.76006 7.98078 8.58006 8.10078 8.44006C8.22078 8.30006 8.27078 8.19006 8.35078 8.03006C8.43078 7.86006 8.39078 7.72006 8.33078 7.60006C8.27078 7.48006 7.77078 6.26006 7.57078 5.76006C7.37078 5.28006 7.16078 5.34006 7.01078 5.33006H6.53078C6.36078 5.33006 6.10078 5.39006 5.87078 5.64006C5.65078 5.89006 5.01078 6.49006 5.01078 7.71006C5.01078 8.93006 5.90078 10.1101 6.02078 10.2701C6.14078 10.4401 7.77078 12.9401 10.2508 14.0101C10.8408 14.2701 11.3008 14.4201 11.6608 14.5301C12.2508 14.7201 12.7908 14.6901 13.2208 14.6301C13.7008 14.5601 14.6908 14.0301 14.8908 13.4501C15.1008 12.8701 15.1008 12.3801 15.0308 12.2701C14.9608 12.1601 14.8108 12.1101 14.5608 11.9901Z" fill="white" />
                 </svg>
+                <span className='pl-5'> Contactar</span>
               </button>
             </div>
             <br />
@@ -475,7 +486,7 @@ export default function Home() {
                   <SelectSimple arr={inputRef.current ? Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique) : []} name='SERVICIO' click={handlerClickSelect} defaultValue={selectValue['SERVICIO'] ? selectValue['SERVICIO'] : 'Seleccionar'} uuid='8768798' label='Servicio'></SelectSimple> */}
                   {true
                     ? <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2">Cotizar</button>
-                    : <button type="submit" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2          text-white bg-green-500 hover:bg-green-500     " onClick={HandlerCheckOut2}>Solicitar Cotizacion</button>
+                    : <button type="submit" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2          text-white bg-green-500 hover:bg-red-600     " onClick={HandlerCheckOut2}>Solicitar Cotizacion</button>
                   }
 
 
@@ -489,10 +500,23 @@ export default function Home() {
                   <InputFlotante type="number" name={'VOLUMEN M3'} id="floating_5" onChange={handlerOnChange} defaultValue={selectValue['VOLUMEN']} required label={'Volumen M3'} />
                   <SelectSimple arr={inputRef.current ? Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['TIPO DE UNIDAD']).filter(onlyUnique) : []} name='TIPO DE UNIDAD' click={handlerClickSelect} defaultValue={selectValue['TIPO DE UNIDAD'] ? selectValue['TIPO DE UNIDAD'] : 'Seleccionar'} uuid='8768798' label='Tipo de unidad' required={true}></SelectSimple>
                   <SelectSimple arr={inputRef.current ? Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i.MERCANCIA).filter(onlyUnique) : []} name='MERCANCIA' click={handlerClickSelect} defaultValue={selectValue['MERCANCIA'] ? selectValue['MERCANCIA'] : 'Seleccionar'} uuid='8768798' label='Mercancia' required={true}></SelectSimple>
-                  <SelectSimple arr={inputRef.current ? Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique) : []} name='SERVICIO' click={handlerClickSelect} defaultValue={selectValue['SERVICIO'] ? selectValue['SERVICIO'] : 'Seleccionar'} uuid='8768798' label='Servicio' required={true}></SelectSimple>
+                  {/* <SelectSimple arr={inputRef.current ? Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique) : []} name='SERVICIO' click={handlerClickSelect} defaultValue={selectValue['SERVICIO'] ? selectValue['SERVICIO'] : 'Seleccionar'} uuid='8768798' label='Servicio' required={true}></SelectSimple> */}
+                  <div className='flex  justify-around col-span-2'>
+                    <div class="flex items-center ">
+                      <input id="checkbox_1" type="checkbox" checked={selectValue['SERVICIO'] === 'SIN DEVOLUCION'} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-100 focus:ring-1 "  onClick={()=>handlerClickSelect2('SIN DEVOLUCION')}  />
+                      <label for="checkbox_1" class="ms-2 text-sm font-medium text-gray-900 ">Sin devolucion</label>
+                    </div>
+                   {Object.values(cliente.priceFTL) &&  Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value)    &&Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique).length  == 2 && <div class="flex items-center">
+                      <input id="checkbox_2" type="checkbox" checked={selectValue['SERVICIO'] === 'CON DEVOLUCION'} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-100 focus:ring-1 " onClick={()=>handlerClickSelect2('CON DEVOLUCION')}/>
+                      <label for="checkbox_2" class="ms-2 text-sm font-medium text-gray-900 ">Con devolucion</label>
+                    </div>}
+                  </div>
+
+
+
                   {selectValue['VOLUMEN M3'] <= 43 && selectValue['PESO (KG)'] <= 25000
                     ? <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2">Cotizar</button>
-                    : <button type="submit" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2          text-white bg-green-500 hover:bg-green-500     " onClick={HandlerCheckOut2}>Solicitar Cotizacion</button>
+                    : <button type="submit" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2          text-white bg-green-500 hover:bg-red-600     " onClick={HandlerCheckOut2}>Solicitar Cotizacion</button>
                   }
                 </form>
               }
@@ -530,7 +554,20 @@ export default function Home() {
 
                   <div className='relative  w-full grid grid-cols-2 gap-x-5 mt-5'>
                     <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2.5 text-center" onClick={() => setCalcValue('NO DATA')}>Volver a calcular</button>
-                    <button type="submit" className="w-full text-white bg-green-500 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2.5 text-center" onClick={HandlerCheckOut}>Solicitar Servicio</button>
+                    <button type="submit" className="w-full flex  justify-center items-center text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2 text-center" onClick={HandlerCheckOut}>
+                      Cotizacion PDF
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.568 1.4248L20.3932 5.41231V20.5758H6.10352V20.6253H20.442V5.46249L16.568 1.4248Z" fill="#909090" />
+                        <path d="M16.5205 1.375H6.05469V20.5755H20.3932V5.41269L16.5205 1.375Z" fill="#F4F4F4" />
+                        <path d="M5.94977 2.40625H1.55664V7.09981H15.3754V2.40625H5.94977Z" fill="#7A7B7C" />
+                        <path d="M15.4494 7.02024H1.64648V2.32324H15.4494V7.02024Z" fill="#DD2025" />
+                        <path d="M6.22278 3.11684H5.32422V6.41684H6.03097V5.30378L6.18703 5.31272C6.33872 5.31063 6.48903 5.28345 6.63184 5.23228C6.7574 5.18965 6.87279 5.12154 6.97078 5.03222C7.07127 4.94796 7.15022 4.84096 7.20109 4.72009C7.2707 4.51983 7.29535 4.3067 7.27328 4.09584C7.26936 3.94518 7.24294 3.79594 7.19491 3.65309C7.15162 3.54983 7.08725 3.45675 7.00592 3.3798C6.92459 3.30285 6.82809 3.24373 6.72259 3.20622C6.63165 3.17253 6.53739 3.14857 6.44141 3.13472C6.3689 3.12291 6.29556 3.11693 6.22209 3.11684M6.09216 4.69397H6.03097V3.67647H6.16366C6.22222 3.67224 6.28098 3.68123 6.3356 3.70277C6.39022 3.72431 6.4393 3.75785 6.47922 3.8009C6.56194 3.9116 6.60613 4.04634 6.60503 4.18453C6.60503 4.35365 6.60503 4.50697 6.45241 4.6149C6.34248 4.67545 6.2173 4.70337 6.09216 4.69397ZM8.61597 3.1079C8.53966 3.1079 8.46541 3.1134 8.41316 3.11547L8.24953 3.11959H7.71328V6.41959H8.34441C8.58557 6.42579 8.82563 6.38493 9.05116 6.29928C9.23274 6.22757 9.39346 6.11152 9.51866 5.96172C9.64134 5.81126 9.72894 5.63535 9.77509 5.44678C9.82932 5.2336 9.85566 5.01429 9.85347 4.79434C9.86693 4.53457 9.84682 4.27415 9.79366 4.01953C9.74276 3.83231 9.64856 3.65969 9.51866 3.51559C9.41677 3.39907 9.29143 3.30536 9.15084 3.24059C9.03041 3.18477 8.90368 3.14368 8.77341 3.11822C8.7216 3.10972 8.66915 3.10581 8.61666 3.10653M8.49153 5.81322H8.42278V3.70672H8.43172C8.57346 3.69033 8.71688 3.7159 8.84422 3.78028C8.93749 3.85475 9.01349 3.94858 9.06697 4.05528C9.12469 4.16757 9.15796 4.29082 9.16459 4.4169C9.17078 4.56815 9.16459 4.6919 9.16459 4.79434C9.16714 4.91234 9.15955 5.03033 9.14191 5.14703C9.12028 5.2667 9.08113 5.38253 9.02572 5.49078C8.96312 5.59173 8.87763 5.67652 8.77616 5.73828C8.6914 5.79328 8.5909 5.81889 8.49016 5.81115M11.9827 3.11959H10.312V6.41959H11.0188V5.11059H11.9125V4.49734H11.0188V3.73284H11.9813V3.11959" fill="#464648" />
+                        <path d="M14.9735 13.9258C14.9735 13.9258 17.1652 13.5284 17.1652 14.2771C17.1652 15.0258 15.8074 14.7212 14.9735 13.9258ZM13.3531 13.9828C13.0048 14.0596 12.6654 14.1722 12.3404 14.319L12.6154 13.7003C12.8904 13.0815 13.1757 12.238 13.1757 12.238C13.503 12.7908 13.8849 13.3095 14.3156 13.7862C13.9913 13.8345 13.67 13.9006 13.3531 13.9842V13.9828ZM12.4854 9.51409C12.4854 8.86165 12.6965 8.68359 12.8608 8.68359C13.0251 8.68359 13.2101 8.76265 13.2162 9.32915C13.1626 9.89878 13.0434 10.4603 12.8608 11.0025C12.6099 10.5476 12.4804 10.0357 12.4847 9.51615L12.4854 9.51409ZM9.28924 16.7438C8.61687 16.3417 10.6993 15.1035 11.0767 15.0636C11.0747 15.0643 9.99324 17.1646 9.28924 16.7438ZM17.8053 14.3658C17.7984 14.297 17.7366 13.536 16.3822 13.5683C15.8176 13.5584 15.2533 13.5982 14.6957 13.6872C14.1553 13.1432 13.6901 12.5293 13.3125 11.8619C13.5502 11.1739 13.6943 10.4571 13.7408 9.73065C13.7209 8.90565 13.5236 8.43265 12.8911 8.43953C12.2586 8.4464 12.1664 8.99984 12.2496 9.82346C12.331 10.377 12.4847 10.9174 12.7068 11.4308C12.7068 11.4308 12.4146 12.3404 12.0282 13.2452C11.6419 14.1499 11.3779 14.6243 11.3779 14.6243C10.7059 14.8428 10.0734 15.1677 9.50443 15.5868C8.93793 16.1141 8.70762 16.519 9.00599 16.924C9.26312 17.2732 10.1631 17.3523 10.9674 16.2983C11.3941 15.7534 11.7845 15.1811 12.1362 14.5851C12.1362 14.5851 13.3627 14.2489 13.7442 14.1568C14.1258 14.0647 14.5871 13.9918 14.5871 13.9918C14.5871 13.9918 15.7071 15.1186 16.7871 15.0787C17.8672 15.0388 17.8149 14.4332 17.8081 14.3672" fill="#DD2025" />
+                        <path d="M16.4688 1.42773V5.46542H20.3414L16.4688 1.42773Z" fill="#909090" />
+                        <path d="M16.5215 1.375V5.41269H20.3942L16.5215 1.375Z" fill="#F4F4F4" />
+                        <path d="M6.17005 3.06411H5.27148V6.36411H5.98098V5.25173L6.13773 5.26067C6.28943 5.25858 6.43973 5.2314 6.58255 5.18023C6.7081 5.1376 6.82349 5.06949 6.92148 4.98017C7.02122 4.89568 7.09945 4.7887 7.14973 4.66804C7.21934 4.46778 7.24399 4.25465 7.22192 4.04379C7.218 3.89313 7.19158 3.7439 7.14355 3.60104C7.10026 3.49779 7.03589 3.40471 6.95456 3.32776C6.87323 3.25081 6.77673 3.19168 6.67123 3.15417C6.57987 3.12016 6.48515 3.09596 6.38867 3.08198C6.31616 3.07017 6.24282 3.0642 6.16936 3.06411M6.03942 4.64123H5.97823V3.62373H6.11161C6.17017 3.61951 6.22893 3.6285 6.28355 3.65004C6.33817 3.67158 6.38725 3.70511 6.42717 3.74817C6.50989 3.85887 6.55408 3.99361 6.55298 4.13179C6.55298 4.30092 6.55298 4.45423 6.40036 4.56217C6.29043 4.62272 6.16526 4.64995 6.04011 4.64054M8.56323 3.05517C8.48692 3.05517 8.41267 3.06067 8.36042 3.06273L8.19886 3.06686H7.66261V6.36686H8.29373C8.5349 6.37306 8.77496 6.33219 9.00048 6.24654C9.18206 6.17483 9.34279 6.05878 9.46798 5.90898C9.59067 5.75852 9.67827 5.58261 9.72442 5.39404C9.77865 5.18087 9.80499 4.96156 9.8028 4.74161C9.81625 4.48184 9.79615 4.22142 9.74298 3.96679C9.69209 3.77958 9.59789 3.60696 9.46798 3.46286C9.36609 3.34633 9.24076 3.25262 9.10017 3.18786C8.97974 3.13203 8.85301 3.09094 8.72273 3.06548C8.67093 3.05699 8.61848 3.05308 8.56598 3.05379M8.44086 5.76048H8.37211V3.65398H8.38105C8.52278 3.63759 8.66621 3.66317 8.79355 3.72754C8.88682 3.80202 8.96281 3.89584 9.0163 4.00254C9.07402 4.11484 9.10729 4.23808 9.11392 4.36417C9.12011 4.51542 9.11392 4.63917 9.11392 4.74161C9.11646 4.8596 9.10887 4.9776 9.09123 5.09429C9.06961 5.21396 9.03046 5.32979 8.97505 5.43804C8.91245 5.539 8.82696 5.62379 8.72548 5.68554C8.64072 5.74055 8.54023 5.76615 8.43948 5.75842M11.9299 3.06686H10.2593V6.36686H10.966V5.05786H11.8598V4.44461H10.966V3.68011H11.9285V3.06686" fill="white" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               }
@@ -553,12 +590,12 @@ export default function Home() {
                     <h5 className='px-5 py-1 my-2 bg-blue-700  text-white '>FLETE</h5>
                     {item.flete && Object.entries(item.flete).map((i, index) => <div className='flex w-full'><span className='w-full bg-slate-100 font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
                     <h5 className='px-5 py-1 my-2 bg-blue-700  text-white '>RECARGOS ORIGEN</h5>
-                    {item.flete && Object.entries(item['recargos origen']).map((i, index) => <div className='flex w-full'><span className='w-full bg-slate-100 font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
+                    {item['recargos origen'] && Object.entries(item['recargos origen']).map((i, index) => <div className='flex w-full'><span className='w-full bg-slate-100 font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
                     <h5 className='px-5 py-1 my-2 bg-blue-700  text-white '>RECARGOS DESTINO</h5>
-                    {item.flete && Object.entries(item['recargos destino']).map((i, index) => <div className='flex w-full'><span className='w-full bg-slate-100 font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
+                    {item['recargos destino'] && Object.entries(item['recargos destino']).map((i, index) => <div className='flex w-full'><span className='w-full bg-slate-100 font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
                     <div className='relative  w-full grid grid-cols-2 gap-x-5 mt-5'>
-                      <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2.5 text-center" onClick={() => setCalcValueFCL('NO DATA')}>Volver a calcular</button>
-                      <button type="submit" className="w-full text-white bg-green-500 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2.5 text-center" onClick={HandlerCheckOut}>Solicitar Servicio</button>
+                      <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2 text-center" onClick={() => setCalcValueFCL('NO DATA')}>Volver a calcular</button>
+                      <InvoicePDF  ></InvoicePDF>
                     </div>
                     <br />
                     <div>
@@ -568,28 +605,9 @@ export default function Home() {
 
                 })
               }
-
-              {/* {calcValueFCL !== 'NO DATA' &&
-                calcValueFCL.map(i => {
-
-                  <div className=" pt-5 " >
-                    <h5 className='font-bold my-2 text-blue-700 '>FLETE</h5>
-                    {Object.entries(calcValueFCL.flete).map((i, index) => <div className='flex w-full'><span className='w-full font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
-                    <h5 className='font-bold my-2 text-blue-700'>RECARGOS ORIGEN</h5>
-                    {Object.entries(calcValueFCL['recargos origen']).map((i, index) => <div className='flex w-full'><span className='w-full font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
-                    <h5 className='font-bold my-2 text-blue-700'>RECARGOS DESTINO</h5>
-                    {Object.entries(calcValueFCL['recargos destino']).map((i, index) => <div className='flex w-full'><span className='w-full font-bold border px-3 py-1'>{i[1].ip}</span><span className='w-full border px-3 py-1'>{i[1].ic}</span></div>)}
-                    <div className='relative  w-full grid grid-cols-2 gap-x-5 mt-5'>
-                      <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2.5 text-center" onClick={() => setCalcValueFCL('NO DATA')}>Volver a calcular</button>
-                      <button type="submit" className="w-full text-white bg-green-500 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px]  px-5 py-2.5 text-center" onClick={HandlerCheckOut}>Solicitar Servicio</button>
-                    </div>
-                  </div>
-
-                })
-              } */}
             </div>
-            <a href="tel:76586948">
-              <marquee className="text-white py-5" behavior="" direction="">Llamanos ya clickea aqui      <button className='border px-5 ml-5  rounded-full bg-[#00000070]' >(+591) 76586948</button> </marquee>
+            <a href={cliente.contactos.telefono}>
+              <marquee className="text-white py-5" behavior="" direction="">Llamanos ya clickea aqui      <button className='border px-5 ml-5  rounded-full bg-[#00000070]' >{cliente.contactos.telefono}</button> </marquee>
             </a>
           </div>
         </div>

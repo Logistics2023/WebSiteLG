@@ -320,7 +320,7 @@ const PDFView = ({ click }) => {
     console.log(pdfData)
 
     return (
-        <div style={{ display: 'block',  width: '100vw', textAlign: 'center', zIndex: '50' }}>
+        <div style={{ display: 'block', width: '100vw', textAlign: 'center', zIndex: '50' }}>
             {isCliente && <PDFDownloadLink document={
                 <Document style={{ width: '100vw', }}>
                     <Page style={styles.body} size="A4" fixed  >
@@ -541,12 +541,12 @@ const PDFView = ({ click }) => {
 
                     </Page>
                 </Document>
-             }
+            }
                 fileName={`BILL OF LADING`}>
 
                 <Button theme='Primary' click={click}>pdf</Button>
 
-            </PDFDownloadLink>} 
+            </PDFDownloadLink>}
         </div>
     )
 }

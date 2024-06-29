@@ -7,7 +7,7 @@ import { useState } from 'react'
 export default function Button({ click, type, name, onChange, reference, placeholder, styled }) {
 
     const router = useRouter()
-    const [showPassword, setShowPassword] = useState(true)
+    const [showPassword, setShowPassword] = useState(false)
 
 
     function handlerButton(e) {

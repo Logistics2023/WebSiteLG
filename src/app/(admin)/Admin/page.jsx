@@ -22,7 +22,7 @@ function Admin() {
             {/* <img src="/truck.png" className='fixed  w-screen h-screen  object-cover lg:hidden' alt="" /> */}
             <img src="/airplane-bg.jpg" className='fixed  w-screen h-screen  object-cover  ' alt="" />
 
-            <div className='relative bg-gradient-to-t from-[#00061860] to-[#000618d1] h-screen  py-[100px] z-10 '>
+            <div className='relative bg-gradient-to-t from-[#00061860] to-[#000618d1] min-h-screen py-[100px] z-10 '>
                 <div className='hidden lg:flex justify-center'>
                     <img src="/logo.svg" className='w-[20vw]' alt="User" />
                 </div>

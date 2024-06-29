@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/Context.js'
 import { getSpecificData } from '@/firebase/utils'
 import { onAuth } from '@/firebase/utils'
-      
+
 function Home({ children }) {
 
     const { user, userDB, setUserProfile, setUserData, cliente, setNavItem, setCliente, setFocus, trackingDB, setTrackingDB} = useUser()

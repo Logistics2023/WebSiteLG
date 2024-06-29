@@ -1,4 +1,3 @@
-
 'use client'
 import { useUser } from '@/context/Context'
 import { onAuth, signInWithEmail, writeUserData, getSpecificData } from '@/firebase/utils'
@@ -15,6 +14,7 @@ import Footer from '@/components/Footer'
 import { useSearchParams } from 'next/navigation'
 import Button from '@/components/Button'
 import InputFlotante from '@/components/InputFlotante'
+import { arrDB } from '@/db/arrDB'
 
 
 
@@ -39,7 +39,7 @@ function Pages() {
     return <div className="relative flex justify-center min-h-screen pt-[70px]">
         <img src="/airplane-bg.jpg" className='fixed top-0 w-screen h-screen  object-cover ' alt="" />
 
-        <div className="relative  py-[25px] max-w-[960px] w-[80vw] bg-white p-[20px]  shadow-[0 4px 8px rgba(0,0,0,0.1)]">
+        <div className="relative  py-[25px] max-w-[960px] w-[95vw] bg-white p-[3px] lg:p-[20px]  shadow-[0 4px 8px rgba(0,0,0,0.1)]">
             {db ? <form className="relative  pt-5 sm:col-span-3 mb-5 pb-5 border-b-[.5px] "  >
                 <div className='relative p-5 my-5 mt-10 bg-white space-y-5'>
                     <h5 className='text-center font-medium text-[16px]'>Informacion de Carga<br /> </h5>
@@ -47,8 +47,13 @@ function Pages() {
                     <div className='relative p-5 my-5 bg-white space-y-5 shadow-2xl '>
 
                         <h5 className=' font-medium text-[16px]'>DETALLE DEL SERVICIO <br /> </h5>
-
-
+                        <div className='relative flex  '>
+                            {arrDB.map((i, index) => <span key={index} className='relative flex items-center m-2 cursor-pointer p-2' >
+                                <span className='absolute  top-[0px] left-0 right-0 mx-auto bg-[#294B98] w-[2px] h-[5px]'></span>
+                                <img src={i.img} className={` inline w-[30px] border-[1px] ${db.trackIcon && i.img === db.trackIcon['img'] ? 'grayscale-0 brightness-150' : 'grayscale '}`} alt="" />
+                            </span>)}
+                            <span className='absolute top-[5px] h-[2px] bg-[#294B98] w-full'></span>
+                        </div>
                         <table className='w-full mt-[20px] border-collapse	table-fixed'>
                             <tr>
                                 <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
@@ -151,38 +156,7 @@ function Pages() {
                         <h5 className=' font-medium text-[16px]'>STATUS <br /> </h5>
 
                         <table className='w-full mt-[20px] border-collapse	table-fixed'>
-                            <tr>
-                                <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
-                                    BOOKING
-                                </th>
-                                <td className=' border-[1px]  border-[#ccc] p-[8px] text-left break-words'>
-                                    {db['BOOKING']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
-                                    ZARPE
-                                </th>
-                                <td className=' border-[1px]  border-[#ccc] p-[8px] text-left break-words'>
-                                    {db['ZARPE']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
-                                    TRANSITO
-                                </th>
-                                <td className=' border-[1px]  border-[#ccc] p-[8px] text-left break-words'>
-                                    {db['TRANSITO']}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
-                                    ARRIBO A DESTINO
-                                </th>
-                                <td className=' border-[1px]  border-[#ccc] p-[8px] text-left break-words'>
-                                    {db['ARRIBO A DESTINO']}
-                                </td>
-                            </tr>
+
 
                             {db && db.subItems && Object.values(db.subItems).map((item, index) => {
                                 return <tr>
@@ -208,7 +182,7 @@ function Pages() {
                         </div> */}
                 </div>
             </form> :
-               <div> DATOS INEXISTENTES</div> 
+                <div> DATOS INEXISTENTES</div>
             }
 
 

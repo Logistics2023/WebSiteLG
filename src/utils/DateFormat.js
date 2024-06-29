@@ -8,4 +8,7 @@ function getDayMonthYear (time_stamp) {
     
 }
 
-export { getDayMonthYear }
+function getDate(d) {
+    return `${d.getFullYear()}-${d.getMonth()+1 < 9 ? `0${d.getMonth()+1}`: d.getMonth()+1}-${d.getDate()+1 < 9 ? `0${d.getDate()+1}`: d.getDate()}`
+}
+export { getDayMonthYear, getDate }
