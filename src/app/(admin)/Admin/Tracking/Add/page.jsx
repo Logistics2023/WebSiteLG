@@ -22,12 +22,11 @@ export default function Home() {
     const [data, setData] = useState({})
     const [data2, setData2] = useState({})
 
-    const [pais2, setPais2] = useState('Ninguno')
+    const [db, setdb] = useState('Ninguno')
 
-    const onClickHandlerCountry = (name, value) => {
-        setPais2(value)
+    const onClickHandlerCountry = (value) => {
+        setdb(value)
     }
-
     function handlerOnChange(e, key) {
         setData({ ...data, [e.target.name]: e.target.value })
     }
@@ -45,7 +44,7 @@ export default function Home() {
         e.preventDefault()
         let key = generateUUID()
         setUserSuccess('Cargando')
-        writeUserData(`/Tracking/${data['CODIGO DE SERVICIO']}`, { ...data, ['FECHA DE CREACION']: getDate(new Date()), subItems: data2, trackIcon: pais2}, setUserSuccess)
+        writeUserData(`/Tracking/${data['CODIGO DE SERVICIO']}`, { ...data, ['FECHA DE CREACION']: getDate(new Date()), subItems: data2, trackIcon: db }, setUserSuccess)
     }
     function close(e) {
         router.back()
@@ -54,7 +53,7 @@ export default function Home() {
         if (window && typeof window !== "undefined") {
             setQuery(window.location.href.split('=')[1])
         }
-    }, [cliente])
+    }, [cliente, db])
     return (
 
         <div className="min-h-full">
@@ -66,9 +65,18 @@ export default function Home() {
                         X
                     </div>
                     <form className="relative  pt-5 sm:col-span-3 mb-5 pb-5 border-b-[.5px] "  >
-                        <div className='relative p-5 my-5 mt-10 bg-white space-y-5'>
+                        <div className='relative  px-2 py-5 my-5 mt-10 bg-white space-y-5'>
                             <h5 className='text-center font-medium text-[16px]'>DETALLE DEL SERVICIO {query}<br /> </h5>
-                            <Select arr={arrDB ? arrDB : []} name='track' uuid='8768' click={onClickHandlerCountry} defaultValue={pais2 ? pais2 : 'Ninguno'} />
+                            <br />
+                            <div className='relative flex  '>
+                                {arrDB.map((i, index) => <div key={index} className='w-full  relative flex flex-col items-center m-2 cursor-pointer p-2' onClick={()=>onClickHandlerCountry(i)} >
+                                    <span className={`absolute z-10  top-[-5px] left-0 right-0 mx-auto border-[2px] border-[#294B98] rounded-full  w-[10px] h-[10px] ${i.img === db['img'] ? 'bg-[#39ff27]' : 'bg-white '}`}></span>
+                                    <img src={i.img} className={` inline h-[20px] sm:h-[25px] md:h-[50px]  ${ i.img === db['img'] ? 'grayscale-0 brightness-125' : 'grayscale '}`} alt="" />
+                                    <span className={`h-[10px] text-[8px] sm:text-[12px] ${i.img === db['img'] ? 'text-[#294B98] font-medium' : ' font-medium'}`}>{i.text}</span>
+                                </div>)}
+                                <span className='absolute top-[5px] h-[2px] bg-[#294B98] w-full'></span>
+                            </div>
+                            <br />
 
                             < InputFlotante type="date" id="floating_5" onChange={(e) => handlerOnChange(e)} value={getDate(new Date())} disabled required label={'FECHA DE CREACION'} shadow='shadow-white' />
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={data['CODIGO DE SERVICIO']} required label={'CODIGO DE SERVICIO'} shadow='shadow-white' />

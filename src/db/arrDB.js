@@ -1,19 +1,23 @@
 const arrDB = [
     {
-        img: '/icons3/FCL.png',
-        text: 'aereo'
+        img: '/Iconos Tracking/Origen.png',
+        text: 'ORIGEN'
+    }, 
+    {
+        img: '/Iconos Tracking/aduana de origen.png',
+        text: 'ADUANA EXPORTACION'
     },
     {
-        img: '/icons3/FTL.png',
-        text: 'terrestre'
+        img: '/Iconos Tracking/transito.png',
+        text: 'TRANSITO'
     },
     {
-        img: '/icons3/DESTINO.png',
-        text: 'maritimo'
+        img: '/Iconos Tracking/aduana de destino.png',
+        text: 'ADUANA  IMPORTACION'
     },
     {
-        img: '/icons3/avion.png',
-        text: 'example'
-    }
+        img: '/Iconos Tracking/destino.png',
+        text: 'DESTINO'
+    },
 ]
-export  {arrDB}
+export { arrDB }
