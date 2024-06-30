@@ -195,6 +195,9 @@ const PDFView = ({ click }) => {
                                     <View style={styles.content}>
                                         <Text style={styles.key}>SERVICIOS LOGISTICOS USD</Text><Text style={styles.value}>{calcValue['SERVICIOS LOGISTICOS USD']}</Text>
                                     </View>
+                                    <View style={styles.content}>
+                                        <Text style={styles.key}>TOTAL</Text><Text style={{ ...styles.value, backgroundColor: '#E2B92D' }}>{calcValue['TOTAL']}</Text>
+                                    </View>
                                 </>
                             }
 
@@ -241,9 +244,39 @@ const PDFView = ({ click }) => {
                                                     <Text style={styles.key}>{i[1].ip}</Text><Text style={styles.value}>{i[1].ic}</Text>
                                                 </View>)}
 
+
                                                 <View style={styles.content}>
+                                                    <Text style={styles.key}>TOTAL</Text><Text style={{ ...styles.value, fontWeight:'bold', backgroundColor: 'yellow' }}>
+                                                        {
+                                                            !isNaN((item.flete && item.flete !== undefined ? Object.values(item.flete).reduce((acc, i) => {
+                                                                let cal = i['ic'] ? acc + i['ic'] * 1 : acc
+                                                                return cal
+                                                            }, 0) * 1 : 0) + (item['recargos destino'] && item['recargos destino'] !== undefined ? Object.values(item['recargos destino']).reduce((acc, i) => {
+                                                                let cal = i['ic'] ? acc + i['ic'] * 1 : acc
+                                                                return cal
+                                                            }, 0) * 1 : 0) + (item['recargos origen'] && item['recargos origen'] !== undefined ? Object.values(item['recargos origen']).reduce((acc, i) => {
+                                                                let cal = i['ic'] ? acc + i['ic'] * 1 : acc
+                                                                return cal
+                                                            }, 0) * 1 : 0))
+                                                                ? ((item.flete && item.flete !== undefined ? Object.values(item.flete).reduce((acc, i) => {
+                                                                    let cal = i['ic'] ? acc + i['ic'] * 1 : acc
+                                                                    return cal
+                                                                }, 0) * 1 : 0) + (item['recargos destino'] && item['recargos destino'] !== undefined ? Object.values(item['recargos destino']).reduce((acc, i) => {
+                                                                    let cal = i['ic'] ? acc + i['ic'] * 1 : acc
+                                                                    return cal
+                                                                }, 0) * 1 : 0) + (item['recargos origen'] && item['recargos origen'] !== undefined ? Object.values(item['recargos origen']).reduce((acc, i) => {
+                                                                    let cal = i['ic'] ? acc + i['ic'] * 1 : acc
+                                                                    return cal
+                                                                }, 0) * 1 : 0))
+                                                                : 0
+
+                                                        } USD
+                                                    </Text>
+                                                </View>
+
+                                                <View style={{...styles.content, marginTop: '15px'}}>
                                                     <Text style={{ width: '50%' }}></Text>
-                                                    <Text style={{ width: '50%', backgroundColor: 'yellow', padding: '3px', textAlign: 'right', fontFamily: 'Inter', fontWeight: 'medium' }}>Fecha maxima de vigencia de cotizacion: {item.VALIDEZ.split('-').reverse().map((e) => e + '/')}</Text>
+                                                    <Text style={{ width: '50%', backgroundColor: 'yellow', padding: '3px', textAlign: 'right', fontFamily: 'Inter', fontWeight: 'medium' }}>Fecha maxima de vigencia de cotizacion: {item.VALIDEZ && item.VALIDEZ !== undefined && item.VALIDEZ.split('-').reverse().map((e) => e + '/')}</Text>
                                                 </View>
                                             </>
 

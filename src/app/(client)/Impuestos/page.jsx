@@ -14,7 +14,7 @@ import SelectSimple from '@/components/SelectSimple'
 import InputFlotante from '@/components/InputFlotante.jsx'
 
 export default function Home() {
-    const { user, introVideo, userDB, setUserProfile, cliente, setUserSuccess, success, setUserData, postsIMG, setUserPostsIMG } = useUser()
+    const { user, introVideo, userDB, setUserProfile, cliente, setUserSuccess, success, setUserData, setFocus, postsIMG, setUserPostsIMG } = useUser()
     const [res, setRes] = useState(false)
     const [mercancias, setMercancias] = useState([])
     const [data, setData] = useState({})
@@ -57,29 +57,33 @@ export default function Home() {
     function handlerSelect(i) {
         inputRef.current.value = i
         setData({ ...data, mercancia: i })
+        setFocus(false)
     }
     function CIF() {
         if (data.transporte === 'Maritimo') {
-            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * 1 + data[`Costo Transporte Terrestre Puerto`] * (30 / 100) + (data['Seguro'] ? data['Seguro'] *1: data[`Valor FOB`]* 0.02))
+            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * 1 + data[`Costo Transporte Terrestre Puerto`] * (30 / 100) + (data['Seguro'] ? data['Seguro'] * 1 : data[`Valor FOB`] * 0.02))
         }
         if (data.transporte === 'Aereo') {
-            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (25 / 100) + (data['Seguro'] ? data['Seguro'] *1: data[`Valor FOB`]* 0.02))
+            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (25 / 100) + (data['Seguro'] ? data['Seguro'] * 1 : data[`Valor FOB`] * 0.02))
         }
         if (data.transporte === 'Terrestre') {
-            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (30 / 100) + (data['Seguro'] ? data['Seguro'] *1: data[`Valor FOB`]* 0.02))
+            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (30 / 100) + (data['Seguro'] ? data['Seguro'] * 1 : data[`Valor FOB`] * 0.02))
         }
-    
+
     }
 
 
     function GA() {
-       return  data.mercancia &&  (Object.values(cliente.mercancias).find((i)=> i.MERCANCIA === data.mercancia).GA/100)  * (CIF()  *1)
+        if (Object.values(cliente.mercancias).find((i) => i.MERCANCIA === data.mercancia).GA == '0') {
+            return  data.mercancia && (1 / 100) * (CIF() * 1)
+        }
+        return data.mercancia && (Object.values(cliente.mercancias).find((i) => i.MERCANCIA === data.mercancia).GA / 100) * (CIF() * 1)
     }
-   
-      function baseImponible() {
+
+    function baseImponible() {
         if (CIF() && GA()) {
-            console.log(CIF() *1)
-            console.log(GA()) 
+            console.log(CIF() * 1)
+            console.log(GA())
             return ((CIF() * 1 + GA() * 1) * 1).toFixed(2)
         }
     }
@@ -90,7 +94,7 @@ export default function Home() {
     }
     function totalImpuestos() {
         if (data.mercancia) {
-            return ((IVA() * 1 + GA( ) * 1 + 15) * 1).toFixed(2)
+            return ((IVA() * 1 + GA() * 1 + 15) * 1).toFixed(2)
         }
     }
     function almacenaje() {
@@ -102,13 +106,13 @@ export default function Home() {
 
     function comisionAgencia() {
         // if (CIF() *1  > 0 && CIF() *1  < 1001) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (console.log( Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1)) }
-        if (CIF() *1  > 0 && CIF() *1  < 1001) {  if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
-        if (CIF() *1  > 1000 && CIF() *1  < 10001) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
-        if (CIF() *1  > 10000 && CIF() *1  < 20001) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
-        if (CIF() *1  > 20000 && CIF() *1  < 30001) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
-        if (CIF() *1  > 30000 && CIF() *1  < 50001) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
-        if (CIF() *1  > 50000 && CIF() *1  < 100001) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
-        if (CIF() *1  > 100000 && CIF() *1  < 1000000000000) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
+        if (CIF() * 1 > 0 && CIF() * 1 < 1001) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
+        if (CIF() * 1 > 1000 && CIF() * 1 < 10001) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (CIF() * 1 * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
+        if (CIF() * 1 > 10000 && CIF() * 1 < 20001) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (CIF() * 1 * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
+        if (CIF() * 1 > 20000 && CIF() * 1 < 30001) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (CIF() * 1 * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
+        if (CIF() * 1 > 30000 && CIF() * 1 < 50001) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (CIF() * 1 * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
+        if (CIF() * 1 > 50000 && CIF() * 1 < 100001) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (CIF() * 1 * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
+        if (CIF() * 1 > 100000 && CIF() * 1 < 1000000000000) { if (CIF() * 1 && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1)) return (CIF() * 1 * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() * 1 && i.hasta >= CIF() * 1).monto * 1) }
     }
     console.log(CIF())
     console.log(data)
@@ -153,10 +157,10 @@ export default function Home() {
         return number
 
     }
-
+    console.log(cliente)
 
     useEffect(() => {
-        setMercancias(Object.values(cliente.mercancias))
+        cliente && setMercancias(Object.values(cliente.mercancias))
     }, [user, cliente])
     return (
         mercancias && <div className="h-full "
@@ -192,7 +196,7 @@ export default function Home() {
                                 <InputFlotante type="number" id="floating_5" onChange={onChangeHandler} inputRef={inputRef4} defaultValue={data['Costo Transporte Terrestre Puerto']} required label={`Costo Transporte Terrestre Puerto`} />
                             </>
                         }
-                        <InputFlotante type="number" id="floating_6" onChange={onChangeHandler} inputRef={inputRef5} value={data['Seguro'] !== null && data['Seguro'] !== undefined? data['Seguro'] : data['Valor FOB'] * 0.02} required label={'Seguro'} />
+                        <InputFlotante type="number" id="floating_6" onChange={onChangeHandler} inputRef={inputRef5} value={data['Seguro'] !== null && data['Seguro'] !== undefined ? data['Seguro'] : data['Valor FOB'] * 0.02} required label={'Seguro'} />
 
                         {res && <table className='relative w-full'>
                             <tbody className='w-full'>
@@ -268,15 +272,15 @@ export default function Home() {
                                     <td className='font-bold'>GASTOS DE DESPACHO</td>
                                     <td>50 USD</td>
                                 </tr>
-                                <tr className='flex justify-between  w-full '>
+                                <tr className='flex justify-between bg-yellow-500  w-full '>
                                     <td className='font-bold'>TOTAL DESPACHO ADUANERO</td>
-                                    <td>
+                                    <td className='bg-yellow-500 font-bold'>
                                         {formatoMexico(totalDespachoAduanero())} USD
                                     </td>
                                 </tr>
-                                <tr className='flex justify-between  w-full '>
+                                <tr className='flex justify-between bg-yellow-500   w-full '>
                                     <td className='font-bold'>TOTAL COSTOS IMPORTACION</td>
-                                    <td>
+                                    <td className='bg-yellow-500 font-bold'>
                                         {formatoMexico(totalCostosImportacion())}  USD
                                     </td>
                                 </tr>

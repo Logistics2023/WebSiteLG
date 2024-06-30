@@ -153,12 +153,12 @@ export default function BottomNavigation({ rol }) {
                         <li onClick={() => handlerNavItem('Herramientas')}>
                             <Link href="#" className={`block py-2 pl-3 pr-4 text-[14px] rounded   md:border-0  md:p-0   transition-all hover:text-[#F1BA06] cursor-pointer z-30 ${navItem === 'Herramientas' ? 'text-[#F1BA06]' : 'text-white'}`} >Herramientas</Link>
                             <div className={`absolute top-[90px] right-[20px] w-[350px]  bg-blue-950  grid grid-cols-2 gap-[20px]  rounded-2xl z-20  overflow-hidden ${navItem === 'Herramientas' ? 'h-auto p-[20px]' : 'h-0 overflow-hidden'}`}>
-                                <Link href='/Contenedores?item=maritimos' className='bg-[#F1BA06]   flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>
-                                    <img src="/icons/TIPOS DE CONTENEDORES.png" className=" w-[35px]" alt="" />
+                                <Link href='/Contenedores?item=maritimos' className='bg-[#F1BA06]   flex flex-col items-center justify-around px-[5px] py-[5px] rounded-[7px]'>
+                                    <img src="/icons/TIPOS DE CONTENEDORES MARITIMOS.png" className=" w-[35px]" alt="" />
                                     <span className="text-[12px] font-medium text-center">Contenedores maritimos</span>
                                 </Link>
-                                <Link href='/Contenedores?item=aereos' className='bg-[#F1BA06]   flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>
-                                    <img src="/icons/TIPOS DE CONTENEDORES.png" className=" w-[35px]" alt="" />
+                                <Link href='/Contenedores?item=aereos' className='bg-[#F1BA06]   flex flex-col items-center  justify-around px-[5px] py-[5px] rounded-[7px]'>
+                                    <img src="/icons/TIPOS DE CONTENEDORES AEREOS.png" className=" w-[35px]" alt="" />
                                     <span className="text-[12px] font-medium text-center">Contenedores aereos</span>
                                 </Link>
                                 <Link href='/Calculadora' className='bg-[#F1BA06]   flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>
@@ -272,12 +272,12 @@ export default function BottomNavigation({ rol }) {
 
                 <h3 className="text-white text-[12px] font-medium pt-2 pl-5 m-0">HERRAMIENTAS</h3>
                 <div className='relative grid grid-cols-2 gap-[20px] p-[20px] pt-[10px] '>
-                    <Link href='/Contenedores?item=maritimos' onClick={() => setNav(false)} className='bg-[#F1BA06]   flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>
-                        <img src="/icons/TIPOS DE CONTENEDORES.png" className=" w-[35px]" alt="" />
+                    <Link href='/Contenedores?item=maritimos' onClick={() => setNav(false)} className='bg-[#F1BA06] flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>
+                        <img src="/icons/TIPOS DE CONTENEDORES MARITIMOS.png" className=" w-[35px]" alt="" />
                         <span className="text-[12px] font-medium text-center">Contenedores maritimos</span>
                     </Link>
-                    <Link href='/Contenedores?item=aereos' onClick={() => setNav(false)} className='bg-[#F1BA06]   flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>
-                        <img src="/icons/TIPOS DE CONTENEDORES.png" className=" w-[35px]" alt="" />
+                    <Link href='/Contenedores?item=aereos' onClick={() => setNav(false)} className='bg-[#F1BA06]   flex flex-col items-center justify-around px-[5px] py-[5px] rounded-[7px]'>
+                        <img src="/icons/TIPOS DE CONTENEDORES AEREOS.png" className=" w-[35px]" alt="" />
                         <span className="text-[12px] font-medium text-center">Contenedores aereos</span>
                     </Link>
                     <Link href='/Calculadora' onClick={() => setNav(false)} className='bg-[#F1BA06]   flex flex-col items-center px-[5px] py-[5px] rounded-[7px]'>

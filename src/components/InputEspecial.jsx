@@ -21,11 +21,6 @@ export default function Button({ type, data, node, focusTxt, id, inputRef, selec
     function stopPropagation(e) {
         e.stopPropagation();
     }
-    function handlerSelect(i) {
-        select(i)
-        setText(i)
-    }
-
     return (
         <div>
             <div className="relative z-0 w-full  group bg-[#ffffff]   border border-[#a1a1a1] rounded-[5px] transition-all" onClick={stopPropagation}>

@@ -24,7 +24,7 @@ export default function Modal({ children, textTrue, textFalse, onClickTrue, onCl
                         <button type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-[12px] font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 mr-2 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" onClick={onClickFalse}>
                             {textFalse}
                         </button>
-                        <button type="button" className={`${theme === 'success'? 'bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600': 'bg-red-600 hover:bg-red-800 '} text-white focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-[12px] inline-flex items-center px-5 py-2.5 text-center`} onClick={onClickTrue}>
+                        <button type="button" className={`${theme === 'success'? 'bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600': 'bg-red-600 hover:bg-red-800 '} text-white focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-[12px] inline-flex items-center px-5 py-2.5 text-center`} onClick={onClickTrue}>
                             {textTrue}
                         </button>
                     </div>

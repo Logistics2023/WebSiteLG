@@ -157,31 +157,31 @@ export default function Home() {
                                 return <tr className="bg-white border-b  hover:bg-gray-50 border border-b-[#a0a0a0] " key={index}>
 
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_1`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['ORIGEN'] ? data[i[0]]['ORIGEN'] : i[1]['ORIGEN']} required table label={'ORIGEN'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_1`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['ORIGEN']  !== undefined ? data[i[0]]['ORIGEN'] : i[1]['ORIGEN']} required table label={'ORIGEN'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_2`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['DESTINO'] ? data[i[0]]['DESTINO'] : i[1]['DESTINO']} required table label={'DESTINO'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_2`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['DESTINO']  !== undefined ? data[i[0]]['DESTINO'] : i[1]['DESTINO']} required table label={'DESTINO'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['PESO (KG)'] ? data[i[0]]['PESO (KG)'] : i[1]['PESO (KG)']} required table label={'PESO (KG)'} shadow='shadow-white' />
+                                        < InputFlotante type="number" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['PESO (KG)']  !== undefined ? data[i[0]]['PESO (KG)'] : i[1]['PESO (KG)']} required table label={'PESO (KG)'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['VOLUMEN M3'] ? data[i[0]]['VOLUMEN M3'] : i[1]['VOLUMEN M3']} required table label={'VOLUMEN M3'} shadow='shadow-white' />
+                                        < InputFlotante type="number" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['VOLUMEN M3']  !== undefined ? data[i[0]]['VOLUMEN M3'] : i[1]['VOLUMEN M3']} required table label={'VOLUMEN M3'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_5`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['TIPO DE UNIDAD'] ? data[i[0]]['TIPO DE UNIDAD'] : i[1]['TIPO DE UNIDAD']} required table label={'TIPO DE UNIDAD'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_5`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['TIPO DE UNIDAD']  !== undefined ? data[i[0]]['TIPO DE UNIDAD'] : i[1]['TIPO DE UNIDAD']} required table label={'TIPO DE UNIDAD'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_6`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['MERCANCIA'] ? data[i[0]]['MERCANCIA'] : i[1]['MERCANCIA']} required table label={'MERCANCIA'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_6`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['MERCANCIA']  !== undefined ? data[i[0]]['MERCANCIA'] : i[1]['MERCANCIA']} required table label={'MERCANCIA'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_7`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['SERVICIO'] ? data[i[0]]['SERVICIO'] : i[1]['SERVICIO']} required table label={'SERVICIO'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_7`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['SERVICIO']  !== undefined ? data[i[0]]['SERVICIO'] : i[1]['SERVICIO']} required table label={'SERVICIO'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_8`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['FLETE USD'] ? data[i[0]]['FLETE USD'] : i[1]['FLETE USD']} required table label={'FLETE USD'} shadow='shadow-white' />
+                                        < InputFlotante type="number" id={`floating_8`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['FLETE USD']  !== undefined ? data[i[0]]['FLETE USD'] : i[1]['FLETE USD']} required table label={'FLETE USD'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_9`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['SERVICIOS LOGISTICOS USD'] ? data[i[0]]['SERVICIOS LOGISTICOS USD'] : i[1]['SERVICIOS LOGISTICOS USD']} required table label={'SERVICIOS LOGISTICOS USD'} shadow='shadow-white' />
+                                        < InputFlotante type="number" id={`floating_9`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['SERVICIOS LOGISTICOS USD']  !== undefined ? data[i[0]]['SERVICIOS LOGISTICOS USD'] : i[1]['SERVICIOS LOGISTICOS USD']} required table label={'SERVICIOS LOGISTICOS USD'} shadow='shadow-white' />
                                     </td>
                                     <td className="w-[150px] px-6 py-4">
                                         <Button type="button" theme="Danger" click={(e) => deleteHandler(e, `Cliente/price${query}/${i[0]}`, i[0], setData)}>Eliminar</Button>
@@ -232,22 +232,22 @@ export default function Home() {
                                 return <tr className="bg-white border-b  hover:bg-gray-50 border border-b-[#a0a0a0] " key={index}>
 
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_1`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['ORIGEN'] ? data[i[0]]['ORIGEN'] : i[1]['ORIGEN']} required table label={'ORIGEN'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_1`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['ORIGEN']  !== undefined ? data[i[0]]['ORIGEN'] : i[1]['ORIGEN']} required table label={'ORIGEN'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_2`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['DESTINO'] ? data[i[0]]['DESTINO'] : i[1]['DESTINO']} required table label={'DESTINO'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_2`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['DESTINO']  !== undefined ? data[i[0]]['DESTINO'] : i[1]['DESTINO']} required table label={'DESTINO'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['NAVIERA'] ? data[i[0]]['NAVIERA'] : i[1]['NAVIERA']} required table label={'NAVIERA'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['NAVIERA']  !== undefined ? data[i[0]]['NAVIERA'] : i[1]['NAVIERA']} required table label={'NAVIERA'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['EQUIPO'] ? data[i[0]]['EQUIPO'] : i[1]['EQUIPO']} required table label={'EQUIPO'} shadow='shadow-white' />
+                                        < InputFlotante type="number" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['EQUIPO']  !== undefined ? data[i[0]]['EQUIPO'] : i[1]['EQUIPO']} required table label={'EQUIPO'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['TT'] ? data[i[0]]['TT'] : i[1]['TT']} required table label={'TT'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['TT']  !== undefined ? data[i[0]]['TT'] : i[1]['TT']} required table label={'TT'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="date" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['VALIDEZ'] ? data[i[0]]['VALIDEZ'] : i[1]['VALIDEZ']} required table label={'VALIDEZ'} shadow='shadow-white' />
+                                        < InputFlotante type="date" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['VALIDEZ']  !== undefined ? data[i[0]]['VALIDEZ'] : i[1]['VALIDEZ']} required table label={'VALIDEZ'} shadow='shadow-white' />
                                     </td>
                                     <td className="w-[150px] px-6 py-4">
                                         <Button type="button" theme="Danger" click={(e) => deleteHandler(e, `Cliente/price${query}/${i[0]}`, i[0], setData)}>Eliminar</Button>
@@ -290,13 +290,13 @@ export default function Home() {
                                 return <tr className="bg-white border-b  hover:bg-gray-50 border border-b-[#a0a0a0] " key={index}>
 
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_10`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['MERCANCIA'] ? data[i[0]]['MERCANCIA'] : i[1]['MERCANCIA']} required table label={'MERCANCIA'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_10`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['MERCANCIA']  !== undefined ? data[i[0]]['MERCANCIA'] : i[1]['MERCANCIA']} required table label={'MERCANCIA'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_11`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['GA'] ? data[i[0]]['GA'] : i[1]['GA']} required table label={'GA'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_11`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['GA']  !== undefined ? data[i[0]]['GA'] : i[1]['GA']} required table label={'GA'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_12`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['IVA'] ? data[i[0]]['IVA'] : i[1]['IVA']} required table label={'IVA'} shadow='shadow-white' />
+                                        < InputFlotante type="number" id={`floating_12`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['IVA']  !== undefined ? data[i[0]]['IVA'] : i[1]['IVA']} required table label={'IVA'} shadow='shadow-white' />
                                     </td>
                                     <td className="w-[150px] px-6 py-4">
                                         <Button type="button" theme="Danger" click={(e) => deleteHandler(e, `Cliente/${query}/${i[0]}`, i[0], setData)}>Eliminar</Button>
@@ -334,10 +334,10 @@ export default function Home() {
                                 return <tr className="bg-white border-b  hover:bg-gray-50 border border-b-[#a0a0a0] " key={index}>
 
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_13`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['termino'] ? data[i[0]]['termino'] : i[1]['termino']} required table label={'termino'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_13`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['termino']  !== undefined ? data[i[0]]['termino'] : i[1]['termino']} required table label={'termino'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="text" id={`floating_14`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['significado'] ? data[i[0]]['significado'] : i[1]['significado']} required table label={'significado'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_14`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['significado']  !== undefined ? data[i[0]]['significado'] : i[1]['significado']} required table label={'significado'} shadow='shadow-white' />
                                     </td>
                                     <td className=" w-[150px] px-6 py-4">
                                         <Button type="button" theme="Danger" click={(e) => deleteHandler(e, `Cliente/${query}/${i[0]}`, i[0], setData)}>Eliminar</Button>
