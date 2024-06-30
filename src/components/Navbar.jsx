@@ -297,7 +297,7 @@ export default function BottomNavigation({ rol }) {
                         <span className="text-[12px] font-medium text-center">Glosario</span>
                     </Link>
                 </div>
-                <div className='relative grid grid-cols-2 gap-[20px] p-[50px] pt-[10px] '>
+                <div className='relative grid grid-cols-2 gap-[20px] p-[20px] pt-[10px] '>
 
                 </div>
             </div>

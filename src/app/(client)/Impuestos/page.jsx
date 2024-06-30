@@ -60,13 +60,13 @@ export default function Home() {
     }
     function CIF() {
         if (data.transporte === 'Maritimo') {
-            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * 1 + data[`Costo Transporte Terrestre Puerto`] * (30 / 100) + data['Seguro'] *1)
+            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * 1 + data[`Costo Transporte Terrestre Puerto`] * (30 / 100) + (data['Seguro'] ? data['Seguro'] *1: data[`Valor FOB`]* 0.02))
         }
         if (data.transporte === 'Aereo') {
-            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (25 / 100) + data['Seguro'] *1)
+            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (25 / 100) + (data['Seguro'] ? data['Seguro'] *1: data[`Valor FOB`]* 0.02))
         }
         if (data.transporte === 'Terrestre') {
-            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (30 / 100) + data['Seguro'] *1)
+            return (data[`Valor FOB`] * 1 + data[`Costo Transporte ${data.transporte}`] * (30 / 100) + (data['Seguro'] ? data['Seguro'] *1: data[`Valor FOB`]* 0.02))
         }
     
     }

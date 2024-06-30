@@ -7,8 +7,7 @@ import { useState, useEffect } from 'react'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Select from '@/components/Select'
-// import { WithAuth } from '@/HOCs/WithAuth'
-// import Video from '@/components/Video'
+
 
 
 import { useRouter } from 'next/navigation';
@@ -18,12 +17,20 @@ export default function Home() {
     const { user, introVideo, userDB, setUserProfile, setUserSuccess, success, setUserData } = useUser()
     const router = useRouter()
     const [countries, setCountries] = useState(null)
-    const [rol, setRol] = useState('Cliente')
-    const [pais, setPais] = useState('Ninguno')
-    const [pais2, setPais2] = useState('Ninguno')
-    const [flag, setFlag] = useState('Ninguno')
+    const [flag, setFlag] = useState('https://flagcdn.com/w320/bo.png')
     const [state, setState] = useState({})
-
+    const [pais, setPais] = useState('Estado Plurinacional de Bolivia')
+    const [pais2, setPais2] = useState({
+        "translations": {
+            "spa": {
+                "official": "Estado Plurinacional de Bolivia",
+                "common": "Bolivia"
+            },
+        },
+        "flags": {
+            "png": "https://flagcdn.com/w320/bo.png",
+        },
+    })
     const changeHandler = (e) => {
         setState({ ...state, [e.target.name]: e.target.value })
     }
@@ -34,36 +41,21 @@ export default function Home() {
     }
     const registerHandler = (e) => {
         e.preventDefault()
-        console.log({ uuid: user.uid, email: user.email, photo: user.photoURL !== undefined ? user.photoURL : 'non exist', rol: 'Cliente', flag, pais, ...state })
-        let nombre = e.target[0].value
-        writeUserData(`Users/${user.uid}`, { rol: 'Cliente' , uuid: user.uid, email: user.email, photo: user.photoURL !== undefined ? user.photoURL : 'non exist', rol: 'Cliente', flag, pais, ...state }, setUserSuccess)
+        writeUserData(`Users/${user.uid}`, { rol: 'Cliente', uuid: user.uid, email: user.email, photo: user.photoURL !== undefined ? user.photoURL : 'non exist', rol: 'Cliente', flag, pais, ...state }, setUserSuccess)
         router.push('/')
 
     }
-    // console.log(pais)
-
     const getContries = async (e) => {
-
         const res = await fetch('https://restcountries.com/v3.1/all')
         const data = await res.json()
         setCountries(data)
 
     }
-
-
-    console.log(user)
-
-    // console.log([...countries.map((i)=>i.translations.spa.official)])
     useEffect(() => {
         getContries()
         console.log(user)
-        // if (user && user.rol) router.push('/Cliente')
-        // if (user == null || user  == undefined || user.role !== 'authenticated') router.push('/SignUp')
-
-        // if (user && user.rol) getSpecificData('Users', user.uuid, setUserData)
-        // if (user && user.rol) router.push('/Cliente')
     }, [user]);
-
+ 
     return (
         <div className="min-h-full "
             style={{
@@ -76,7 +68,6 @@ export default function Home() {
             {/* <Video /> */}
             <div className='w-screen h-screen  flex flex-col justify-center items-center'>
 
-                {/* <img src="/truck.png" className='fixed  w-screen h-screen  object-cover lg:hidden' alt="" /> */}
 
                 <img src="/airplane-bg.jpg" className='absolute  w-screen h-screen  object-cover ' alt="" />
 
@@ -90,9 +81,7 @@ export default function Home() {
                         </div>
                         <div>
                             <label htmlFor="email" className="block mb-2 text-[16px] text-left font-medium text-white">Empresa</label>
-                            {/* <Select arr={['Perona regular', 'Empleado', 'Empresario', 'Distribuidor']} name='rol' click={onClickHandler} /> */}
                             <Input type="text" name="empresa" onChange={changeHandler} id="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-[12px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required />
-
                         </div>
                         <div>
                             <label htmlFor="password" className="block mb-2 text-[16px] text-left  font-medium text-white">Pais</label>
@@ -100,12 +89,10 @@ export default function Home() {
                         </div>
                         <div>
                             <label htmlFor="email" className="block mb-2 text-[16px] text-left font-medium text-white">Ciudad</label>
-                            {/* <Select arr={['Perona regular', 'Empleado', 'Empresario', 'Distribuidor']} name='rol' click={onClickHandler} /> */}
                             <Input type="text" name="ciudad" onChange={changeHandler} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-[12px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required />
                         </div>
                         <div>
                             <label htmlFor="email" className="block mb-2 text-[16px] text-left font-medium text-white">Telefono o Whatsapp</label>
-                            {/* <Select arr={['Perona regular', 'Empleado', 'Empresario', 'Distribuidor']} name='rol' click={onClickHandler} /> */}
                             <Input type="number" name="telefono" onChange={changeHandler} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-[12px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="" required />
 
                         </div>

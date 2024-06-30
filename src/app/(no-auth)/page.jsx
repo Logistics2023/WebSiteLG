@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Button from '@/components/Button'
 import Subtitle from '@/components/Subtitle'
 import Error from '@/components/Error'
+import Modal from '@/components/Modal'
 import { glosario } from '@/db'
 import Footer from '@/components/Footer'
 import TextMaquina from '@/components/TextMaquina'
@@ -40,14 +41,14 @@ function Componente({ title, image, paragraph, id, route }) {
 
   const router = useRouter()
 
-  return <div className='relative bg-[#ffffffcb] my-5 flex  lg:max-w-[500px] lg:min-w-[250px] lg:min-h-[250px] lg:text-[18px] lg:mx-5 lg:flex lg:flex-col lg:justify-center lg:items-center rounded-[15px] '>
-    <img src={image} className=" w-[150px] lg:max-w-[200px] object-contain p-5" alt="" />
-    <div className="w-full bg-gradient-to-t from-[#00195cbe] via-[#00195cbe] to-[#00195c]  p-5 py-5 rounded-r-[15px] lg:rounded-t-[0]  lg:rounded-b-[15px]">
+  return <div className='relative w-full h-full md:w-auto bg-[#ffffffcb] my-5 flex  lg:max-w-[500px] lg:min-w-[250px] lg:min-h-[250px] lg:text-[18px] lg:mx-5 lg:flex lg:flex-col lg:justify-between lg:items-center rounded-[15px] '>
+    <img src={image} className="relative w-[150px] md:min-h-[40%] lg:max-w-[200px] object-contain p-5" alt="" />
+    <div className="relative w-full bg-gradient-to-t md:min-h-[45%] from-[#00195cbe] via-[#00195cbe] to-[#00195c] space-y-5 p-5 py-5 rounded-r-[15px] lg:rounded-t-[0]  lg:rounded-b-[15px]">
       <h4 className="w-full text-left font-medium border-b-[3px] text-white pb-5 pl-0 ml-0 border-[#ffffff] p-5">{title}</h4>
-      <p className="text-white " dangerouslySetInnerHTML={{ __html: paragraph }} >
+      <p className="relative text-white " dangerouslySetInnerHTML={{ __html: paragraph }} >
       </p>
-      <div className="relative flex justify-end w-[100%]">
-        <button className="inline-block bg-[#ffb834] px-3 text-[12px] border text-center font-medium py-2 m-1  
+      <div className=" relative flex mt-5 mb-10 justify-end w-[100%]">
+        <button className="block bg-[#ffb834] px-3 text-[12px] border text-center font-medium py-2 m-1  
          cursor-pointer rounded-[5px]"  onClick={() => router.push(`/Contenedores/Detalles?query=${id}&item=${route}`)}>Saber mas</button>
       </div>
     </div>
@@ -99,7 +100,7 @@ function Section({ subtitle, description, video, gradiente, id, children, tarjet
           </div>
         </ScrollAnimation>
       </div>
-      <div className='w-full text-[white] grid grid-cols-2 gap-5 py-12'>
+      <div className='relative w-full h-full text-[white] grid grid-cols-2 gap-5 py-12'>
         {cliente && cliente[id] && cliente[id].miniTarjetas && Object.values(cliente[id].miniTarjetas).map((i, index) => <Item e1={i[`ip`]} e2={i[`ic`]} />)}
       </div>
 
@@ -111,15 +112,17 @@ function Section({ subtitle, description, video, gradiente, id, children, tarjet
       <video className='absolute bottom-0  w-full h-full min-h-[100vh] object-cover z-10' autoPlay loop muted playsInline>
         <source src={video} type="video/mp4" />
       </video>
-      <div className='absolute top-0  w-full min-h-[100vh] h-full object-cover z-20 bg-gradient-to-tr from-[#00195c]  via-[#cfbd7546] to-[#00195c]    lg:bg-gradient-to-tr lg:from-[#00195cd7]  lg:via-[#cfbd7546] lg:to-[#00195c] '></div>
+      <div className='absolute top-0 w-full min-h-[100vh] h-full object-cover z-20 bg-gradient-to-tr from-[#00195c]  via-[#cfbd7546] to-[#00195c]    lg:bg-gradient-to-tr lg:from-[#00195cd7]  lg:via-[#cfbd7546] lg:to-[#00195c] '></div>
+
+      <div className={`relative flex flex-wrap py-10 ${tarjetas && Object.entries(tarjetas).length > 2 ? 'md:grid md:grid-cols-3' : 'md:grid md:grid-cols-2'}`}>
+        {cliente && cliente[id] && cliente[id].tarjetas && Object.entries(tarjetas).map((i, index) => {
+          return <div className=' w-full  md:w-auto p-5 z-50' key={index}>
+            <Componente route={i[0]} id={id} db={i[1]} title={i[1].title} image={i[1].url} paragraph={i[1].paragraph} />
+          </div>
+        })}
+      </div>
 
 
-
-      {cliente && cliente[id] && cliente[id].tarjetas && Object.entries(tarjetas).map((i, index) => {
-        return <div className='flex  flex-wrap px-5 z-50' key={index}>
-          <Componente route={i[0]} id={id} db={i[1]} title={i[1].title} image={i[1].url} paragraph={i[1].paragraph} />
-        </div>
-      })}
     </div>
 
   </section>
@@ -135,6 +138,8 @@ export default function Home() {
 
   const [selectValue, setSelectValue] = useState({})
   const [code, setCode] = useState('')
+  const [modal, setModal] = useState('')
+
 
 
   const router = useRouter()
@@ -148,9 +153,9 @@ export default function Home() {
     window.open(ref, '_blank')
   }
 
-  
+
   function handlerClickSelect2(e) {
-    setSelectValue({...selectValue, SERVICIO: e})
+    setSelectValue({ ...selectValue, SERVICIO: e })
 
   }
   function handlerOnChangeQR(e) {
@@ -381,22 +386,29 @@ export default function Home() {
   }
   function filterTracking(e) {
     e.preventDefault()
-    router.push(`/Tracking?item=${code}`)
 
+    if (userDB) {
+      router.push(`/Tracking?item=${code}`)
+    } else {
+      setModal('REGISTRATE')
+    }
   }
-
-  console.log(calcValueFCL)
-  console.log(userDB)
-  console.log(user)
+  function handlerElement(data) {
+    if (userDB) {
+      setElement(data)
+    } else {
+      setModal('REGISTRATE')
+    }
+  }
 
   function calcularVenc() {
     var i = new Date('2024,07,28')
     var h = new Date()
     i < h & console.log('vencido')
   }
-  calcularVenc()
   return (
     <main className={`relative h-screen w-screen `} onClick={reset} id='inicio'>
+      {modal === 'REGISTRATE' && <Modal onClickTrue={() => router.push('/SignUp')} textTrue='Registrarme' theme='success' textFalse='Cancelar' onClickFalse={() => setModal('')}>Registrate para utilizar nuestras herramientas gratis</Modal>}
       <section className='relative '>
         <video className='fixed bottom-0 w-full h-[100vh] pb-[10px] object-cover object-bottom ' autoPlay loop muted playsInline>
           <source src={cliente.inicio.url} type="video/mp4" />
@@ -428,13 +440,13 @@ export default function Home() {
             <div className='bg-[#ffffff] p-5'>
               {calcValue === 'NO DATA' && calcValueFCL === 'NO DATA'
                 ? <ul className="flex border-b border-[blue] ">
-                  <li className={`-mb-px mr-1 ${element === 'TRACKING' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => setElement('TRACKING')}>
+                  <li className={`-mb-px mr-1 ${element === 'TRACKING' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => handlerElement('TRACKING')}>
                     <a className=" inline-block rounded-t py-2 px-2 text-blue-700 font-semibold" href="#">Tracking</a>
                   </li>
-                  <li className={`-mb-px mr-1 ${element === 'FCL' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => setElement('FCL')}>
+                  <li className={`-mb-px mr-1 ${element === 'FCL' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => handlerElement('FCL')}>
                     <a className=" inline-block rounded-t py-2 px-2 text-blue-500 font-semibold" href="#">Cotizador FCL</a>
                   </li>
-                  <li className={`-mb-px mr-1 ${element === 'FTL' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => setElement('FTL')}>
+                  <li className={`-mb-px mr-1 ${element === 'FTL' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => handlerElement('FTL')}>
                     <a className=" inline-block rounded-t py-2 px-2 text-blue-500  font-semibold" href="#">Cotizador FTL</a>
                   </li>
                 </ul>
@@ -453,7 +465,7 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-                <label htmlFor="qr" className='bg-[#F7BE38] border-[2px] border-[#0000002d] p-2 rounded-[5px]'>
+                {/* <label htmlFor="qr" className='bg-[#F7BE38] border-[2px] border-[#0000002d] p-2 rounded-[5px]'>
                   <svg width="20" height="20" viewBox="0 0 323 323" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M138.71 0.669922H12.4399C9.25734 0.669922 6.20509 1.93419 3.95465 4.18463C1.70421 6.43507 0.439941 9.48732 0.439941 12.6699V138.93C0.439941 142.112 1.70421 145.165 3.95465 147.415C6.20509 149.666 9.25734 150.93 12.4399 150.93H138.71C141.893 150.93 144.945 149.666 147.195 147.415C149.446 145.165 150.71 142.112 150.71 138.93V12.6699C150.71 9.48732 149.446 6.43507 147.195 4.18463C144.945 1.93419 141.893 0.669922 138.71 0.669922ZM129.24 43.5999V129.47H21.9099V22.1299H129.24V43.5999Z" fill="black" />
                     <path d="M95.7799 43.6001H55.3799C52.1973 43.6001 49.145 44.8644 46.8946 47.1148C44.6442 49.3652 43.3799 52.4175 43.3799 55.6001V96.0001C43.3799 99.1827 44.6442 102.235 46.8946 104.485C49.145 106.736 52.1973 108 55.3799 108H95.7799C98.9625 108 102.015 106.736 104.265 104.485C106.516 102.235 107.78 99.1827 107.78 96.0001V55.6001C107.78 52.4175 106.516 49.3652 104.265 47.1148C102.015 44.8644 98.9625 43.6001 95.7799 43.6001Z" fill="black" />
@@ -471,7 +483,7 @@ export default function Home() {
                     <path d="M138.71 172.4H12.4399C9.25734 172.4 6.20509 173.664 3.95465 175.915C1.70421 178.165 0.439941 181.217 0.439941 184.4V310.67C0.439941 313.852 1.70421 316.905 3.95465 319.155C6.20509 321.406 9.25734 322.67 12.4399 322.67H138.71C141.893 322.67 144.945 321.406 147.195 319.155C149.446 316.905 150.71 313.852 150.71 310.67V184.4C150.71 181.217 149.446 178.165 147.195 175.915C144.945 173.664 141.893 172.4 138.71 172.4ZM129.24 215.33V301.2H21.9099V193.87H129.24V215.33Z" fill="black" />
                   </svg>
                 </label>
-                <input id="qr" type="file" className='hidden' onChange={handlerOnChangeQR} accept="image/* " />
+                <input id="qr" type="file" className='hidden' onChange={handlerOnChangeQR} accept="image/* " /> */}
               </form>}
 
               {element === 'FCL' && calcValue === 'NO DATA' && calcValueFCL === 'NO DATA' &&
@@ -488,8 +500,6 @@ export default function Home() {
                     ? <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2">Cotizar</button>
                     : <button type="submit" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-[12px] w-full  px-5 py-2.5 text-center  mt-7 lg:col-span-2          text-white bg-green-500 hover:bg-red-600     " onClick={HandlerCheckOut2}>Solicitar Cotizacion</button>
                   }
-
-
                 </form>}
 
               {element === 'FTL' && calcValue === 'NO DATA' && calcValueFCL === 'NO DATA' &&
@@ -503,11 +513,11 @@ export default function Home() {
                   {/* <SelectSimple arr={inputRef.current ? Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique) : []} name='SERVICIO' click={handlerClickSelect} defaultValue={selectValue['SERVICIO'] ? selectValue['SERVICIO'] : 'Seleccionar'} uuid='8768798' label='Servicio' required={true}></SelectSimple> */}
                   <div className='flex  justify-around col-span-2'>
                     <div class="flex items-center ">
-                      <input id="checkbox_1" type="checkbox" checked={selectValue['SERVICIO'] === 'SIN DEVOLUCION'} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-100 focus:ring-1 "  onClick={()=>handlerClickSelect2('SIN DEVOLUCION')}  />
+                      <input id="checkbox_1" type="checkbox" checked={selectValue['SERVICIO'] === 'SIN DEVOLUCION'} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-100 focus:ring-1 " onClick={() => handlerClickSelect2('SIN DEVOLUCION')} />
                       <label for="checkbox_1" class="ms-2 text-sm font-medium text-gray-900 ">Sin devolucion</label>
                     </div>
-                   {Object.values(cliente.priceFTL) &&  Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value)    &&Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique).length  == 2 && <div class="flex items-center">
-                      <input id="checkbox_2" type="checkbox" checked={selectValue['SERVICIO'] === 'CON DEVOLUCION'} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-100 focus:ring-1 " onClick={()=>handlerClickSelect2('CON DEVOLUCION')}/>
+                    {Object.values(cliente.priceFTL) && Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value) && Object.values(cliente.priceFTL).filter((i) => i.ORIGEN === inputRef.current.value && i.DESTINO === inputRef2.current.value).map((i) => i['SERVICIO']).filter(onlyUnique).length == 2 && <div class="flex items-center">
+                      <input id="checkbox_2" type="checkbox" checked={selectValue['SERVICIO'] === 'CON DEVOLUCION'} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-100 focus:ring-1 " onClick={() => handlerClickSelect2('CON DEVOLUCION')} />
                       <label for="checkbox_2" class="ms-2 text-sm font-medium text-gray-900 ">Con devolucion</label>
                     </div>}
                   </div>
@@ -606,7 +616,7 @@ export default function Home() {
                 })
               }
             </div>
-            <a href={cliente.contactos.telefono}>
+            <a href={`tel:${cliente.contactos.telefono}`}>
               <marquee className="text-white py-5" behavior="" direction="">Llamanos ya clickea aqui      <button className='border px-5 ml-5  rounded-full bg-[#00000070]' >{cliente.contactos.telefono}</button> </marquee>
             </a>
           </div>

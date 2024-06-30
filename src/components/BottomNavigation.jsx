@@ -17,7 +17,7 @@ function Button({ click, children, name }) {
 
 
 export default function BottomNavigation({ rol }) {
-    const { user, userDB, setUserProfile, filter, setFilter, nav, setNav } = useUser()
+    const { user, userDB, cliente,setUserProfile, filter, setFilter, nav, setNav } = useUser()
 
     const router = useRouter()
 
@@ -58,7 +58,7 @@ export default function BottomNavigation({ rol }) {
             </svg>
             <span  className="text-[12px] text-white   " >Servicios</span>
         </Button> */}
-        <Button click={() => redirectHandlerWindow(`https://api.whatsapp.com/send?phone=+59176586948&text=hola%20Logistics%20Gear`)}>
+        <Button click={() => redirectHandlerWindow(`https://api.whatsapp.com/send?phone=${cliente.contactos.telefono.replaceAll(' ', '')}&text=hola%20Logistics%20Gear`)}>
             <span  className="w-11 h-11 mb-1 text-gray-600 redrounded-full  p-1">
                 <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.853564 19.7608C0.852627 23.1216 1.73763 26.4031 3.42044 29.2955L0.692627 39.178L10.8851 36.5262C13.7042 38.0491 16.8628 38.847 20.0726 38.8472H20.0811C30.6772 38.8472 39.3026 30.2917 39.3072 19.7759C39.3092 14.6802 37.3111 9.88857 33.6808 6.28361C30.0511 2.67896 25.2237 0.692755 20.0803 0.69043C9.48294 0.69043 0.858096 9.24547 0.853721 19.7608" fill="transparent" />
