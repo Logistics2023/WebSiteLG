@@ -99,6 +99,7 @@ export default function Home() {
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['CODIGO DE SERVICIO']} disabled={true} required label={'CODIGO DE SERVICIO'} shadow='shadow-white' />
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['CODIGO DE CLIENTE']} required label={'CODIGO DE CLIENTE'} shadow='shadow-white' />
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['MODALIDAD DE TRANSPORTE']} required label={'MODALIDAD DE TRANSPORTE'} shadow='shadow-white' />
+                            < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['ORIGEN']} required label={'ORIGEN'} shadow='shadow-white' />
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['DESTINO']} required label={'DESTINO'} shadow='shadow-white' />
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['MERCANCIA']} required label={'MERCANCIA'} shadow='shadow-white' />
                             < InputFlotante type="text" id="floating_5" onChange={(e) => handlerOnChange(e)} defaultValue={trackingDB[query]['PESO TN']} required label={'PESO TN'} shadow='shadow-white' />

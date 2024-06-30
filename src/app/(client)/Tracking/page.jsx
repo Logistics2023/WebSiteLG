@@ -89,6 +89,14 @@ function Pages() {
                         </tr>
                         <tr>
                             <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
+                                ORIGEN
+                            </th>
+                            <td className=' border-[1px]  border-[#ccc] p-[8px] text-left break-words'>
+                                {db['ORIGEN']}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className=' border-[1px]  border-[#ccc] p-[8px] text-left font-bold bg-[#f9f9f9]' >
                                 DESTINO
                             </th>
                             <td className=' border-[1px]  border-[#ccc] p-[8px] text-left break-words'>
