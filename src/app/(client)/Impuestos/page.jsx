@@ -90,7 +90,7 @@ export default function Home() {
     }
     function totalImpuestos() {
         if (data.mercancia) {
-            return ((IVA() * 1 + GA() * 1 + 15) * 1).toFixed(2)
+            return ((IVA() * 1 + GA( ) * 1 + 15) * 1).toFixed(2)
         }
     }
     function almacenaje() {
@@ -111,7 +111,7 @@ export default function Home() {
         if (CIF() *1  > 100000 && CIF() *1  < 1000000000000) { if (CIF() *1  && Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 )) return (CIF() *1  * Object.values(cliente.comisionFTL).find((i) => i.de <= CIF() *1  && i.hasta >= CIF() *1 ).monto * 1) }
     }
     console.log(CIF())
-    console.log(comisionAgencia())
+    console.log(data)
     function totalDespachoAduanero() {
         return (comisionAgencia() * 1 + 50).toFixed(2)
     }
@@ -192,7 +192,7 @@ export default function Home() {
                                 <InputFlotante type="number" id="floating_5" onChange={onChangeHandler} inputRef={inputRef4} defaultValue={data['Costo Transporte Terrestre Puerto']} required label={`Costo Transporte Terrestre Puerto`} />
                             </>
                         }
-                        <InputFlotante type="number" id="floating_6" onChange={onChangeHandler} inputRef={inputRef5} value={data['Seguro'] ? data['Seguro'] : data['Valor FOB'] * 0.02} required label={'Seguro'} />
+                        <InputFlotante type="number" id="floating_6" onChange={onChangeHandler} inputRef={inputRef5} value={data['Seguro'] !== null && data['Seguro'] !== undefined? data['Seguro'] : data['Valor FOB'] * 0.02} required label={'Seguro'} />
 
                         {res && <table className='relative w-full'>
                             <tbody className='w-full'>
