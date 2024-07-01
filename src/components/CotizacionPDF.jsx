@@ -287,7 +287,7 @@ const PDFView = ({ click }) => {
                                 </>
                             }
                             {element === 'FTL' && calcValue &&calcValue !== 'NO DATA' &&<View style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium', }}>
-                                                        <Text>
+                                                        <Text style={{}}>
                                                             <Br />
                             <Br />
                             Nota importante para cotizaciones de transporte terrestre:
