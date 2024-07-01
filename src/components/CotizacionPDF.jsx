@@ -294,7 +294,7 @@ const PDFView = ({ click }) => {
                                                         </Text>
 
                                                         <Text style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontFamily: 'Inter', fontWeight: 'medium', fontSize: '10px' }}>
-                                                                <Br /> <Br />
+                                                       
                             Por favor tenga en cuenta que las tarifas proporcionadas en esta cotización son estimaciones preliminares y están sujetas a variaciones en caso de cambios en las dimensiones o el peso de la carga. Además, estas tarifas son válidas únicamente para carga general. Tenga en cuenta que el seguro no está incluido en las tarifas mostradas y es obligatorio contar con un seguro para el transporte de la carga. Logistics Gear no se hace responsable por daños o pérdidas durante el transporte sin cobertura de seguro adecuada. Para carga que requiera condiciones especiales o exceda las dimensiones o pesos estándares, es necesario que se ponga en contacto con nosotros para ajustar la cotización a sus necesidades específicas.
                             <Br /><Br />
                             Para consultas o cotizaciones personalizadas, puede comunicarse con nosotros a través de<Br /> <Br />
@@ -303,8 +303,6 @@ const PDFView = ({ click }) => {
                                                     }
                         {element === 'FCL' && calcValueFCL && calcValueFCL !== 'NO DATA' &&<View style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium',} }>
                                                           <Text>
-                                                            <Br />
-                            <Br />
                             Nota importante sobre las cotizaciones automáticas:                            </Text>
                                                             <Text style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontFamily: 'Inter', fontWeight: 'medium', fontSize: '10px' }}>
                                                                 <Br /> <Br />
