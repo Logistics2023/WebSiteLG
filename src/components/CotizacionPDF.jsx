@@ -198,6 +198,7 @@ const PDFView = ({ click }) => {
                                     <View style={styles.content}>
                                         <Text style={styles.key}>TOTAL</Text><Text style={{ ...styles.value, backgroundColor: '#E2B92D' }}>{calcValue['TOTAL']}</Text>
                                     </View>
+
                                 </>
                             }
 
@@ -285,11 +286,32 @@ const PDFView = ({ click }) => {
 
                                 </>
                             }
-                            <View style={styles.content}>
-                                <Text style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontFamily: 'Inter', fontWeight: 'medium', fontSize: '10px' }}>
-                                    <Br /> <Br />La cotización esta sujeta a los diferentes movientos del mercado en general, PARA UN COTIZACIÓN MAS CERTERA CONTANOS O VISITANOS EN: <Br /> <Br />
-                                </Text>
-                            </View>
+                            {element === 'FTL' && calcValue &&calcValue !== 'NO DATA' &&<View style={styles.content}>
+                                                        <Text>
+                                                            <Br />
+                            <Br />
+                            Nota importante para cotizaciones de transporte terrestre:
+                                                        </Text>
+                                                            <Text style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontFamily: 'Inter', fontWeight: 'medium', fontSize: '10px' }}>
+                                                                <Br /> <Br />
+                            Por favor tenga en cuenta que las tarifas proporcionadas en esta cotización son estimaciones preliminares y están sujetas a variaciones en caso de cambios en las dimensiones o el peso de la carga. Además, estas tarifas son válidas únicamente para carga general. Tenga en cuenta que el seguro no está incluido en las tarifas mostradas y es obligatorio contar con un seguro para el transporte de la carga. Logistics Gear no se hace responsable por daños o pérdidas durante el transporte sin cobertura de seguro adecuada. Para carga que requiera condiciones especiales o exceda las dimensiones o pesos estándares, es necesario que se ponga en contacto con nosotros para ajustar la cotización a sus necesidades específicas.
+                            <Br /><Br />
+                            Para consultas o cotizaciones personalizadas, puede comunicarse con nosotros a través de<Br /> <Br />
+                                                            </Text>
+                                                        </View>}
+                            {element === 'FCL' && calcValueFCL && calcValueFCL !== 'NO DATA' &&<View style={styles.content}>
+                                                          <Text>
+                                                            <Br />
+                            <Br />
+                            Nota importante sobre las cotizaciones automáticas:                            </Text>
+                                                            <Text style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontFamily: 'Inter', fontWeight: 'medium', fontSize: '10px' }}>
+                                                                <Br /> <Br />
+                            Nota importante sobre las cotizaciones automáticas:
+                            <Br /> <Br />
+                            Las tarifas generadas automáticamente por este cotizador están sujetas a la confirmación de espacio por las navieras y aplican exclusivamente para carga general no peligrosa ni sobredimensionada. Tenga en cuenta que el seguro no está incluido en las tarifas mostradas y es obligatorio contar con un seguro para el transporte de la carga. Logistics Gear no se hace responsable por daños o pérdidas durante el transporte sin cobertura de seguro adecuada. Para cargas clasificadas como IMO o que excedan las dimensiones estándar, les solicitamos contactar directamente a través de nuestros siguientes canales para obtener una cotización adecuada a sus necesidades específicas:
+                            <Br /> <Br />
+                                                            </Text>
+                                                        </View>}
 
                             <View style={styles.content}>
                                 <Text style={{ width: '100%', padding: '3px', textAlign: 'center', color: '#294B98', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium', }}>
