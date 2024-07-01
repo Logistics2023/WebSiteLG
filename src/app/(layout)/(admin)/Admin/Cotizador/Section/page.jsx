@@ -241,7 +241,7 @@ export default function Home() {
                                         < InputFlotante type="text" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['NAVIERA']  !== undefined ? data[i[0]]['NAVIERA'] : i[1]['NAVIERA']} required table label={'NAVIERA'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
-                                        < InputFlotante type="number" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['EQUIPO']  !== undefined ? data[i[0]]['EQUIPO'] : i[1]['EQUIPO']} required table label={'EQUIPO'} shadow='shadow-white' />
+                                        < InputFlotante type="text" id={`floating_4`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['EQUIPO']  !== undefined ? data[i[0]]['EQUIPO'] : i[1]['EQUIPO']} required table label={'EQUIPO'} shadow='shadow-white' />
                                     </td>
                                     <td className="px-6 py-4">
                                         < InputFlotante type="text" id={`floating_3`} onChange={(e) => handlerOnChange(e, i[0])} value={data[i[0]] && data[i[0]]['TT']  !== undefined ? data[i[0]]['TT'] : i[1]['TT']} required table label={'TT'} shadow='shadow-white' />
