@@ -286,7 +286,7 @@ const PDFView = ({ click }) => {
 
                                 </>
                             }
-                            {element === 'FTL' && calcValue &&calcValue !== 'NO DATA' &&<View style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium', }>
+                            {element === 'FTL' && calcValue &&calcValue !== 'NO DATA' &&<View style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium', }}>
                                                         <Text>
                                                             <Br />
                             <Br />
@@ -299,8 +299,9 @@ const PDFView = ({ click }) => {
                             <Br /><Br />
                             Para consultas o cotizaciones personalizadas, puede comunicarse con nosotros a través de<Br /> <Br />
                                                         </Text>
-                                                        </View>}
-                        {element === 'FCL' && calcValueFCL && calcValueFCL !== 'NO DATA' &&<View style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium', }>
+                                                        </View>
+                                                    }
+                        {element === 'FCL' && calcValueFCL && calcValueFCL !== 'NO DATA' &&<View style={{ width: '100%', padding: '3px', textAlign: 'center', color: 'black', fontSize: '10px', fontFamily: 'Inter', fontWeight: 'medium',} }>
                                                           <Text>
                                                             <Br />
                             <Br />
