@@ -58,7 +58,7 @@ export default function BottomNavigation({ rol }) {
         return () => window.removeEventListener('scroll', controlNavbar);
     }, [lastScrollY, show, filter]);
     return <>
-        <nav className={`fixed  w-screen   transition-all ${pathname == '/Glosario' ? ' bg-gradient-to-br from-[#00195c] via-[#274492] to-[#00195c]' : ''} z-40  ${show ? 'top-0' : 'top-[-100px]'} transition-all  ${scrollY > 500 ? 'bg-[#101c3fd5] lg:border-b lg:border-gray-200' : ''}`}>
+        <nav className={`fixed  w-screen   transition-all ${pathname == '/Glosario' ? ' bg-gradient-to-br from-[#00195c] via-[#274492] to-[#00195c]' : ''} z-20  ${show ? 'top-0' : 'top-[-100px]'} transition-all  ${scrollY > 500 ? 'bg-[#101c3fd5] lg:border-b lg:border-gray-200' : ''}`}>
 
             <div className="w-screen flex items-center justify-between mx-auto py-4 px-4 lg:px-8 ">
                 <Link href="/" className="flex items-center">

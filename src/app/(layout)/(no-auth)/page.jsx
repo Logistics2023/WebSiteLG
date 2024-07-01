@@ -361,7 +361,7 @@ export default function Home() {
               </button>
             </div>
             <br />
-            <div className='bg-[#ffffff] p-5'>
+            <div className='bg-[#ffffff] p-5 z-30'>
               {calcValue === 'NO DATA' && calcValueFCL === 'NO DATA'
                 ? <ul className="flex border-b border-[blue] ">
                   <li className={`-mb-px mr-1 ${element === 'TRACKING' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => handlerElement('TRACKING')}>
