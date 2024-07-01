@@ -338,9 +338,9 @@ export default function Home() {
           <source src={cliente.inicio.url} type="video/mp4" />
         </video>
         <div className='absolute top-0  w-full min-h-[100vh] h-full object-cover z-10 bg-gradient-to-tr from-[#00195c]  via-[#cfbd7546] to-[#00195c72]    lg:bg-gradient-to-tr lg:from-[#00195cd7]  lg:via-[#cfbd7546] lg:to-[#00195c] '></div>
-        <div className='relative min-h-[100vh]  py-[50px] w-full lg:pt-10 pb-0 flex flex-col justify-around lg:flex-row items-center  z-20' style={{ background: '-gradient(to bottom, #000000,  #000000c7, #00000050' }}>
+        <div className='relative min-h-[100vh] h-auto   w-full lg:pt-[70px] pb-0 flex flex-col justify-around lg:flex-row items-center  z-20' style={{ background: '-gradient(to bottom, #000000,  #000000c7, #00000050' }}>
           <img src='/logo-comp.gif' className=' relative  inline-block w-[80vw] h-[80vw]    lg:w-[30vw] lg:h-[60vh]  object-cover object-center ' />
-          <div className='relative lg:scale-110 w-full lg:w-[40%] lg:bg-[#111a33d0] p-5'>
+          <div className='relative  w-full lg:w-[40%] lg:bg-[#111a33d0] p-5 '>
             <div className='   font-bold'>
               <TextMaquina />
             </div>
