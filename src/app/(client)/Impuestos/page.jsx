@@ -225,69 +225,80 @@ export default function Home() {
                                     <td>{data['Seguro']}</td>
                                 </tr> */}
                                 <tr className='relative flex justify-between   w-full '>
-                                    <td className='font-bold'>CIF FRONTERA</td>
-                                    <td>
+                                    <td className='font-bold bg-slate-100 border w-[70%]'>CIF FRONTERA</td>
+                                    <td className='border text-right w-[30%]'>
                                         {formatoMexico(CIF())} USD
                                     </td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>GA</td>
-                                    <td>
+                                    <td className='font-bold bg-slate-100 border w-[70%]'>GA</td>
+                                    <td className='border text-right w-[30%]'>
                                         {formatoMexico(GA())} USD
                                     </td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>BASE IMPONIBLE IVA</td>
-                                    <td>
+                                    <td className='font-bold bg-slate-100 border w-[70%]'>BASE IMPONIBLE IVA</td>
+                                    <td className='border text-right w-[30%]'>
                                         {formatoMexico(baseImponible())} USD
                                     </td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>IVA</td>
-                                    <td>
+                                    <td className='font-bold  bg-slate-100 border w-[70%]'>IVA</td>
+                                    <td className='border text-right w-[30%]'>
                                         {formatoMexico(IVA())} USD
                                         {/* {data.mercancia && (CIF() + (CIF() * (mercancias.reduce((acc, i) => { return { ...acc, [i.MERCANCIA]: i } }, {})[data.mercancia]['GA'] / 100))) * (mercancias.reduce((acc, i) => { return { ...acc, [i.MERCANCIA]: i } }, {})[data.mercancia]['IVA'] / 100)} */}
                                     </td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>USO DE SISTEMA</td>
-                                    <td>15 USD</td>
+                                    <td className='font-bold  bg-slate-100 border w-[70%]'>USO DE SISTEMA</td>
+                                    <td className='border text-right w-[30%]'>15 USD</td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>TOTAL IMPUESTOS</td>
-                                    <td>{formatoMexico(totalImpuestos())} USD</td>
+                                    <td className='font-bold  bg-slate-100 border w-[70%]'>TOTAL IMPUESTOS</td>
+                                    <td className='border text-right w-[30%]'>{formatoMexico(totalImpuestos())} USD</td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>ALMACENAJE 0,57%CIF</td>
-                                    <td>{formatoMexico(almacenaje())} USD</td>
+                                    <td className='font-bold  bg-slate-100 border w-[70%]'>ALMACENAJE 0,57%CIF</td>
+                                    <td className='border text-right w-[30%]'>{formatoMexico(almacenaje())} USD</td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>COMISION AGENCIA</td>
-                                    <td>
+                                    <td className='font-bold  bg-slate-100 border w-[70%]'>COMISION AGENCIA</td>
+                                    <td className='border text-right w-[30%]'>
                                         {formatoMexico(comisionAgencia())} USD
 
                                     </td>
                                 </tr>
                                 <tr className='flex justify-between  w-full '>
-                                    <td className='font-bold'>GASTOS DE DESPACHO</td>
-                                    <td>50 USD</td>
+                                    <td className='font-bold  bg-slate-100 border w-[70%]'>GASTOS DE DESPACHO</td>
+                                    <td className='border text-right w-[30%]'>50 USD</td>
                                 </tr>
                                 <tr className='flex justify-between bg-yellow-500  w-full '>
-                                    <td className='font-bold'>TOTAL DESPACHO ADUANERO</td>
-                                    <td className='bg-yellow-500 font-bold'>
+                                    <td className='font-bold bg-yellow-500 bg-slate-100 border border-yellow-400  w-[70%]'>TOTAL DESPACHO ADUANERO</td>
+                                    <td className='bg-yellow-500 font-bold border border-yellow-400 w-[30%] text-right'>
                                         {formatoMexico(totalDespachoAduanero())} USD
                                     </td>
                                 </tr>
                                 <tr className='flex justify-between bg-yellow-500   w-full '>
-                                    <td className='font-bold'>TOTAL COSTOS IMPORTACION</td>
-                                    <td className='bg-yellow-500 font-bold'>
+                                    <td className='font-bold bg-yellow-500 bg-slate-100 border border-yellow-400 w-[70%]'>TOTAL COSTOS IMPORTACION</td>
+                                    <td className='bg-yellow-500 font-bold border border-yellow-400 w-[30%] text-right'>
                                         {formatoMexico(totalCostosImportacion())}  USD
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         }
-                        {res && <p className='italic'>Estos calculos son aproximados debido a los cambios del mercado, para un calculo exacto contactanos ya...</p>}
+                        {res && <p className='italic'>
+                        <span className='font-bold'>Nota importante sobre el cálculo de impuestos de importación: </span>
+                        <br/>
+                        <span>Por favor tenga en cuenta que los costos mostrados por esta calculadora 
+                        son aproximados y están sujetos a posibles variaciones debido a costos 
+                        adicionales que pueden surgir durante el proceso de importación. 
+                        Este cálculo es puramente referencial y no debe ser considerado como una cotización final.</span>
+                        <br/>
+                        <span>Para obtener una cotización exacta y formal que considere todas las variables y costos 
+                        potenciales, le recomendamos ponerse en contacto directamente con nosotros. Esto garantizará 
+                        que reciba una estimación precisa y personalizada acorde a las especificaciones y requisitos de su carga.</span>
+                        </p>}
 
                         <div className='flex  justify-center'>
                             {res
@@ -297,10 +308,7 @@ export default function Home() {
                         </div>
                     </form>
                 </div>
-
-
             </div>
-
             {success == 'AccountNonExist' && <Error>Cuenta inexistente</Error>}
             {success == 'Complete' && <Error>Complete el formulario</Error>}
         </div >
