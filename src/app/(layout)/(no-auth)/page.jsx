@@ -332,15 +332,15 @@ export default function Home() {
     }
   }
   return (
-    <main className={`relative h-screen w-screen `} onClick={reset} id='inicio'>
+    <main className={`relative  w-screen `} onClick={reset} id='inicio'>
       <section className='relative '>
         <video className='fixed bottom-0 w-full h-[100vh] pb-[10px] object-cover object-bottom ' autoPlay loop muted playsInline>
           <source src={cliente.inicio.url} type="video/mp4" />
         </video>
         <div className='absolute top-0  w-full min-h-[100vh] h-full object-cover z-10 bg-gradient-to-tr from-[#00195c]  via-[#cfbd7546] to-[#00195c72]    lg:bg-gradient-to-tr lg:from-[#00195cd7]  lg:via-[#cfbd7546] lg:to-[#00195c] '></div>
-        <div className='relative min-h-[100vh] h-full py-[50px] w-full lg:pt-10 pb-0 flex flex-col justify-around lg:flex-row items-center  z-20' style={{ background: '-gradient(to bottom, #000000,  #000000c7, #00000050' }}>
+        <div className='relative min-h-[100vh]  py-[50px] w-full lg:pt-10 pb-0 flex flex-col justify-around lg:flex-row items-center  z-20' style={{ background: '-gradient(to bottom, #000000,  #000000c7, #00000050' }}>
           <img src='/logo-comp.gif' className=' relative  inline-block w-[80vw] h-[80vw]    lg:w-[30vw] lg:h-[60vh]  object-cover object-center ' />
-          <div className='lg:scale-110 w-full lg:w-[40%] lg:bg-[#111a33d0] p-5'>
+          <div className='relative lg:scale-110 w-full lg:w-[40%] lg:bg-[#111a33d0] p-5'>
             <div className='   font-bold'>
               <TextMaquina />
             </div>
@@ -361,7 +361,7 @@ export default function Home() {
               </button>
             </div>
             <br />
-            <div className='bg-[#ffffff] p-5 z-30'>
+            <div className='relative bg-[#ffffff] p-5 z-30'>
               {calcValue === 'NO DATA' && calcValueFCL === 'NO DATA'
                 ? <ul className="flex border-b border-[blue] ">
                   <li className={`-mb-px mr-1 ${element === 'TRACKING' && 'bg-[#F7BE38] border border-[blue] border-b-transparent'}`} onClick={() => handlerElement('TRACKING')}>
